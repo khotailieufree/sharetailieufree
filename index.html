@@ -3,162 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kho Template - Tìm Tài Liệu Bạn Cần</title>
+    <title>Kho Template Cao Cấp - Tải Tài Liệu Miễn Phí</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-green: #2ea44f;
-            --shopee-color: #ff5722;
-            --bg-color: #fbfbfa;
-            --border-color: #e3e3e0;
-            --text-dark: #2c2c2c;
-            --text-gray: #7c7c7a;
+            --primary-green: #10b981; /* Xanh lục bảo thời thượng */
+            --primary-dark: #111827;  /* Đen xám sâu sang trọng */
+            --shopee-color: #ff5722;   /* Màu cam Shopee */
+            --shopee-hover: #f4511e;
+            --bg-page: #f8fafc;        /* Nền xám nhạt nhẹ mắt */
+            --card-bg: #ffffff;
+            --border-light: #f1f5f9;   /* Viền mờ tinh tế */
+            --text-main: #1f2937;
+            --text-sub: #64748b;       /* Chữ phụ màu xám mượt */
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            margin: 0;
-            padding: 15px;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
+            padding: 20px 16px;
         }
 
         .container {
             width: 100%;
             max-width: 480px;
-            padding-top: 25px;
+            margin-top: 20px;
         }
 
-        .sub-title {
-            text-transform: uppercase;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            color: #1b4d3e;
+        /* Phần Header */
+        .header {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .badge-premium {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+            margin-bottom: 16px;
         }
 
         h1 {
-            font-size: 26px;
-            font-weight: 500;
-            text-align: center;
-            margin: 0 0 10px 0;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
         }
 
         .desc {
-            font-size: 13px;
-            color: var(--text-gray);
-            line-height: 1.5;
-            text-align: center;
-            margin-bottom: 25px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.6;
         }
 
-        /* Ô Tìm Kiếm */
+        /* Thanh Tìm Kiếm Tròn Bo Góc Sang Trọng */
         .search-box-wrapper {
             position: relative;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .search-input {
             width: 100%;
-            padding: 14px 45px 14px 20px;
+            padding: 16px 50px 16px 22px;
             font-size: 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 25px;
+            font-weight: 500;
+            border: 2px solid transparent;
+            border-radius: 30px;
             outline: none;
-            box-sizing: border-box;
             background-color: #fff;
-            color: var(--text-dark);
+            color: var(--text-main);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.1);
         }
 
         .search-icon {
             position: absolute;
-            right: 20px;
+            right: 22px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-gray);
+            color: var(--text-sub);
             font-size: 18px;
             pointer-events: none;
         }
 
-        /* Gợi Ý Tìm Kiếm (Tags) */
+        /* Tags Gợi Ý */
         .tags-wrapper {
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 24px;
             font-size: 12px;
-            color: var(--text-gray);
+            color: var(--text-sub);
+            font-weight: 500;
         }
 
         .tag {
             background: #fff;
-            padding: 5px 12px;
-            border-radius: 15px;
-            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
             cursor: pointer;
-            color: #555;
+            color: var(--text-main);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
         }
 
-        /* Custom Dropdown Danh Mục Giống Ảnh */
+        .tag:hover {
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+            transform: translateY(-1px);
+        }
+
+        /* Custom Dropdown Đẹp Mắt */
         .dropdown-container {
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             user-select: none;
         }
 
         .dropdown-header {
             background: #fff;
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 1px solid var(--border-color);
+            padding: 14px 22px;
+            border-radius: 30px;
+            border: 1px solid var(--border-light);
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
             font-size: 14px;
-            color: #555;
+            font-weight: 600;
+            color: var(--text-main);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-header:hover {
+            border-color: #cbd5e1;
         }
 
         .dropdown-header span {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .dropdown-list {
             position: absolute;
-            top: calc(100% + 5px);
+            top: calc(100% + 8px);
             left: 0;
             width: 100%;
             background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            max-height: 350px;
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            max-height: 320px;
             overflow-y: auto;
             z-index: 100;
             display: none;
-            padding: 5px 0;
+            padding: 8px;
             box-sizing: border-box;
+            animation: slideDown 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .dropdown-item {
-            padding: 12px 20px;
+            padding: 12px 16px;
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
 
         .dropdown-item:hover {
-            background-color: #f5f5f3;
+            background-color: #f8fafc;
+            color: var(--primary-green);
         }
 
         .dropdown-item .cat-name {
@@ -168,103 +220,128 @@
         }
 
         .dropdown-item .cat-count {
-            background: #e0e0dc;
-            color: #888;
+            background: #f1f5f9;
+            color: var(--text-sub);
             font-size: 11px;
             padding: 2px 8px;
             border-radius: 10px;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         /* Tổng số kết quả */
         .results-count {
-            font-size: 12px;
-            color: var(--text-gray);
-            margin-bottom: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            margin-bottom: 16px;
             text-align: left;
-            padding-left: 5px;
+            padding-left: 6px;
         }
 
-        /* Card hiển thị tài liệu đúng thiết kế ảnh của bạn */
+        /* Thiết kế CARD Tài Liệu Cao Cấp */
         .results-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
         .result-item {
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 18px;
             display: flex;
             align-items: center;
-            gap: 14px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+            gap: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.015);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            border-color: #e2e8f0;
         }
 
         .doc-icon {
-            width: 44px;
-            height: 44px;
-            background-color: #eef7f2;
-            border-radius: 8px;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 22px;
             flex-shrink: 0;
+            transition: all 0.2s;
         }
+
+        /* Màu nền icon theo loại file */
+        .icon-excel { background-color: #ecfdf5; }
+        .icon-word { background-color: #eff6ff; }
+        .icon-pdf { background-color: #fef2f2; }
+        .icon-zip { background-color: #fffbeb; }
 
         .doc-info {
             flex-grow: 1;
-            min-width: 0; /* Tránh tràn chữ */
+            min-width: 0;
         }
 
         .doc-title {
             font-size: 14px;
             font-weight: 600;
-            line-height: 1.4;
-            color: #111;
-            margin-bottom: 4px;
+            line-height: 1.5;
+            color: var(--text-main);
+            margin-bottom: 6px;
             word-wrap: break-word;
         }
 
         .doc-meta {
             font-size: 12px;
-            color: var(--text-gray);
+            font-weight: 500;
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
         .doc-tag {
-            background-color: #eef7f2;
-            color: var(--primary-green);
-            padding: 3px 10px;
-            border-radius: 12px;
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            padding: 2px 8px;
+            border-radius: 10px;
             font-size: 11px;
-            font-weight: bold;
-            display: inline-block;
-            margin-left: 8px;
+            font-weight: 600;
         }
 
         .btn-download {
-            background-color: var(--primary-green);
+            background: linear-gradient(135deg, #10b981, #059669);
             color: #fff;
             border: none;
-            padding: 8px 16px;
-            border-radius: 15px;
+            padding: 10px 18px;
+            border-radius: 16px;
             font-size: 13px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
             flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+            transition: all 0.2s ease;
         }
 
-        /* Modal Popup Mở Khóa */
+        .btn-download:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.25);
+        }
+
+        /* POPUP Mở Khóa Đầy Tính Nghệ Thuật */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(15, 23, 42, 0.4); /* Nền mờ sang trọng */
+            backdrop-filter: blur(8px);       /* Làm nhòe background sau popup */
             display: none;
             justify-content: center;
             align-items: center;
@@ -273,60 +350,80 @@
 
         .modal {
             background: white;
-            padding: 25px;
-            border-radius: 16px;
+            padding: 30px 24px;
+            border-radius: 24px;
             width: 90%;
-            max-width: 350px;
+            max-width: 360px;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            animation: popIn 0.25s ease-out;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            animation: bounceIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes popIn {
-            from { transform: scale(0.92); opacity: 0; }
+        @keyframes bounceIn {
+            from { transform: scale(0.85); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
+        .modal-gift-icon {
+            font-size: 44px;
+            margin-bottom: 12px;
+        }
+
         .modal-title {
-            font-size: 17px;
-            font-weight: bold;
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--primary-dark);
             margin-bottom: 10px;
         }
 
         .modal-desc {
             font-size: 13px;
-            color: #555;
-            line-height: 1.4;
-            margin-bottom: 20px;
+            color: var(--text-sub);
+            line-height: 1.5;
+            margin-bottom: 24px;
         }
 
         .btn-shopee {
             display: block;
-            background: var(--shopee-color);
+            background: linear-gradient(135deg, #ff5722, #f4511e);
             color: white;
             text-decoration: none;
-            padding: 12px;
-            border-radius: 20px;
-            font-weight: bold;
+            padding: 14px;
+            border-radius: 30px;
+            font-weight: 700;
             font-size: 14px;
-            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.25);
+            transition: all 0.2s;
+        }
+
+        .btn-shopee:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.35);
         }
 
         .btn-drive {
             display: block;
-            background: var(--primary-green);
+            background: linear-gradient(135deg, #10b981, #059669);
             color: white;
             text-decoration: none;
-            padding: 12px;
-            border-radius: 20px;
-            font-weight: bold;
+            padding: 14px;
+            border-radius: 30px;
+            font-weight: 700;
             font-size: 14px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
         }
 
         .no-results {
             text-align: center;
-            color: var(--text-gray);
-            padding: 30px;
+            color: var(--text-sub);
+            padding: 40px 20px;
             font-size: 14px;
         }
     </style>
@@ -334,17 +431,19 @@
 <body>
 
     <div class="container">
-        <div class="sub-title">Kho Template</div>
-        <h1>Tìm tài liệu bạn cần</h1>
-        <p class="desc">Kho template miễn phí đa ngành nghề — menu, nhân sự, tài chính, vận hành, học ngôn ngữ</p>
+        <div class="header">
+            <span class="badge-premium">Premium Hub</span>
+            <h1>Tìm tài liệu bạn cần</h1>
+            <p class="desc">Kho tài liệu và template chọn lọc, giúp nâng cao năng suất công việc của bạn hàng ngày.</p>
+        </div>
 
         <div class="search-box-wrapper">
-            <input type="text" id="searchInput" class="search-input" placeholder="Nhập tên template... vd: Mẫu báo cáo, doanh thu">
+            <input type="text" id="searchInput" class="search-input" placeholder="Nhập tên tài liệu... Ví dụ: báo cáo, chấm công">
             <span class="search-icon">🔍</span>
         </div>
 
         <div class="tags-wrapper">
-            <span>Thử tìm:</span>
+            <span>Gợi ý:</span>
             <span class="tag" onclick="fillSearch('menu')">menu</span>
             <span class="tag" onclick="fillSearch('chấm công')">chấm công</span>
             <span class="tag" onclick="fillSearch('doanh thu')">doanh thu</span>
@@ -354,7 +453,7 @@
         <div class="dropdown-container">
             <div class="dropdown-header" id="dropdownHeader">
                 <span>📁 Duyệt theo danh mục</span>
-                <span>▼</span>
+                <span style="font-size: 10px; color: #94a3b8;">▼</span>
             </div>
             <div class="dropdown-list" id="dropdownList">
                 <div class="dropdown-item" data-cat="all">
@@ -419,40 +518,35 @@
 
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
-            <div class="modal-title" id="modalTitle">🎁 Mở Khóa Link Tải</div>
-            <p class="modal-desc" id="modalDesc">Vui lòng ghé thăm Shopee của tụi mình trong 5 giây để lấy link tải Google Drive nhé!</p>
+            <div class="modal-gift-icon" id="modalGiftIcon">🎁</div>
+            <div class="modal-title" id="modalTitle">Mở Khóa Link Tải</div>
+            <p class="modal-desc" id="modalDesc">Bạn ơi, ghé thăm Shopee của tụi mình trong 5 giây để ủng hộ và mở khóa link tải Google Drive nhé!</p>
             <div id="modalActionArea"></div>
         </div>
     </div>
 
     <script>
         // ==========================================================
-        // 1. KHO TÀI LIỆU CỦA BẠN (TỰ THÊM TÀI LIỆU MỚI TẠI ĐÂY)
+        // 1. KHO TÀI LIỆU (TỰ THÊM TÀI LIỆU MỚI TẠI ĐÂY)
         // ==========================================================
         const documents = [
             {
                 title: "CÔNG THỨC TÍNH GIÁ SẢN PHẨM TRÊN SHOPEE.xlsx",
                 category: "Kinh doanh",
                 size: "114 KB",
-                driveUrl: "https://drive.google.com/your-drive-id-1"
+                driveUrl: "https://drive.google.com/your-id-1"
             },
             {
                 title: "Kế Hoạch Khai Trương Cửa Hàng Bán Lẻ chi tiết.docx",
                 category: "Vận hành",
                 size: "450 KB",
-                driveUrl: "https://drive.google.com/your-drive-id-2"
-            },
-            {
-                title: "Mẫu Báo Cáo Doanh Thu Theo Tuần/Tháng.xlsx",
-                category: "Kinh doanh",
-                size: "95 KB",
-                driveUrl: "https://drive.google.com/your-drive-id-3"
+                driveUrl: "https://drive.google.com/your-id-2"
             },
             {
                 title: "Trọn bộ 500 từ vựng luyện thi HSK 3.pdf",
                 category: "Tiếng Trung",
                 size: "1.2 MB",
-                driveUrl: "https://drive.google.com/your-drive-id-4"
+                driveUrl: "https://drive.google.com/your-id-3"
             }
         ];
 
@@ -460,7 +554,7 @@
         const linkShopeeCuaBan = "https://shopee.vn";
 
         // ==========================================================
-        // 2. LOGIC ĐIỀU KHIỂN GIAO DIỆN
+        // 2. PHẦN MỀM ĐIỀU KHIỂN GIAO DIỆN
         // ==========================================================
         const searchInput = document.getElementById('searchInput');
         const dropdownHeader = document.getElementById('dropdownHeader');
@@ -469,6 +563,7 @@
         const resultsCount = document.getElementById('resultsCount');
         
         const modalOverlay = document.getElementById('modalOverlay');
+        const modalGiftIcon = document.getElementById('modalGiftIcon');
         const modalTitle = document.getElementById('modalTitle');
         const modalDesc = document.getElementById('modalDesc');
         const modalActionArea = document.getElementById('modalActionArea');
@@ -476,25 +571,38 @@
         let selectedCategory = "all";
         let pendingDriveUrl = "";
 
-        // Hiển thị/Ẩn Dropdown khi click
+        // Trượt thả Dropdown
         dropdownHeader.addEventListener('click', (e) => {
             e.stopPropagation();
             dropdownList.style.display = dropdownList.style.display === 'block' ? 'none' : 'block';
         });
 
-        // Ẩn dropdown khi click ngoài màn hình
         document.addEventListener('click', () => {
             dropdownList.style.display = 'none';
         });
 
-        // Tính toán số lượng file cho từng danh mục & cập nhật vào Menu
+        // Hàm tự động xác định Icon đẹp theo loại đuôi file (.xlsx, .docx, .pdf...)
+        function getFileStyle(fileName) {
+            const lower = fileName.toLowerCase();
+            if (lower.endsWith('.xlsx') || lower.endsWith('.xls')) {
+                return { icon: '📊', className: 'icon-excel' };
+            } else if (lower.endsWith('.docx') || lower.endsWith('.doc')) {
+                return { icon: '📝', className: 'icon-word' };
+            } else if (lower.endsWith('.pdf')) {
+                return { icon: '📕', className: 'icon-pdf' };
+            } else if (lower.endsWith('.zip') || lower.endsWith('.rar')) {
+                return { icon: '📦', className: 'icon-zip' };
+            }
+            return { icon: '📁', className: 'icon-zip' }; // Mặc định
+        }
+
+        // Cập nhật số đếm của danh mục
         function updateCategoryCounts() {
             const counts = { all: documents.length };
             documents.forEach(doc => {
                 counts[doc.category] = (counts[doc.category] || 0) + 1;
             });
 
-            // Set số lượng vào giao diện
             document.querySelectorAll('.dropdown-item').forEach(item => {
                 const cat = item.getAttribute('data-cat');
                 const countBadge = item.querySelector('.cat-count');
@@ -504,7 +612,7 @@
             });
         }
 
-        // Chọn danh mục từ Dropdown
+        // Đổi danh mục khi bấm chọn
         document.querySelectorAll('.dropdown-item').forEach(item => {
             item.addEventListener('click', () => {
                 selectedCategory = item.getAttribute('data-cat');
@@ -514,13 +622,13 @@
             });
         });
 
-        // Điền từ khoá khi bấm thẻ gợi ý "Thử tìm"
+        // Điền từ khoá nhanh
         window.fillSearch = function(text) {
             searchInput.value = text;
             render();
         }
 
-        // Tìm kiếm và hiển thị danh sách tài liệu
+        // Hiển thị danh sách file
         function render() {
             const query = searchInput.value.toLowerCase().trim();
             resultsList.innerHTML = "";
@@ -531,23 +639,25 @@
                 return matchSearch && matchCategory;
             });
 
-            // Cập nhật số kết quả
             resultsCount.innerText = `${filtered.length} kết quả ${query ? `cho "${query}"` : ""}`;
 
             if (filtered.length === 0) {
-                resultsList.innerHTML = `<div class="no-results">Không tìm thấy tài liệu nào khớp... 😢</div>`;
+                resultsList.innerHTML = `<div class="no-results">Hệ thống chưa có tài liệu này... 😢</div>`;
                 return;
             }
 
-            // Render từng card tài liệu
             filtered.forEach(doc => {
+                const style = getFileStyle(doc.title);
                 const item = document.createElement('div');
                 item.className = 'result-item';
                 item.innerHTML = `
-                    <div class="doc-icon">📁</div>
+                    <div class="doc-icon ${style.className}">${style.icon}</div>
                     <div class="doc-info">
                         <div class="doc-title">${doc.title}</div>
-                        <div class="doc-meta">Drive · ${doc.size} <span class="doc-tag">${doc.category}</span></div>
+                        <div class="doc-meta">
+                            Drive · ${doc.size} 
+                            <span class="doc-tag">${doc.category}</span>
+                        </div>
                     </div>
                     <button class="btn-download" onclick="triggerUnlock('${doc.driveUrl}')">Tải về</button>
                 `;
@@ -555,26 +665,24 @@
             });
         }
 
-        // Kích hoạt Popup khi người dùng ấn nút "Tải về"
+        // Gọi Popup khi bấm tải
         window.triggerUnlock = function(driveUrl) {
             pendingDriveUrl = driveUrl;
             
-            // Khởi tạo popup trạng thái yêu cầu click Shopee
-            modalTitle.innerText = "🎁 Mở Khóa Tài Liệu";
-            modalDesc.innerText = "Bạn ơi, ghé thăm Shopee của tụi mình một chút để hệ thống tự động mở khóa link Google Drive nhé!";
+            modalGiftIcon.innerText = "🎁";
+            modalTitle.innerText = "Mở Khóa Link Tải";
+            modalDesc.innerText = "Bạn ơi, bấm vào nút bên dưới để ghé thăm Shopee một chút và mở khóa link tải Google Drive nhé!";
             modalActionArea.innerHTML = `<a href="${linkShopeeCuaBan}" target="_blank" class="btn-shopee" id="shopeeBtn">Đi tới Shopee</a>`;
             
             modalOverlay.style.display = 'flex';
 
-            // Lắng nghe khi khách bấm click Shopee
             document.getElementById('shopeeBtn').addEventListener('click', () => {
                 setTimeout(() => {
-                    // Chuyển sang nút Drive xịn
-                    modalTitle.innerText = "🎉 Đã Mở Khóa!";
-                    modalDesc.innerText = "Cảm ơn bạn đã ủng hộ! Bấm nút bên dưới để tải tài liệu từ Google Drive:";
+                    modalGiftIcon.innerText = "🎉";
+                    modalTitle.innerText = "Đã Mở Khóa!";
+                    modalDesc.innerText = "Cảm ơn bạn rất nhiều! Nút tải Google Drive đã sẵn sàng dưới đây:";
                     modalActionArea.innerHTML = `<a href="${pendingDriveUrl}" target="_blank" class="btn-drive" id="driveBtn">Tải Ngay (Google Drive)</a>`;
 
-                    // Đóng modal sau khi khách tải xong file Drive
                     document.getElementById('driveBtn').addEventListener('click', () => {
                         setTimeout(() => {
                             modalOverlay.style.display = 'none';
@@ -584,14 +692,13 @@
             });
         }
 
-        // Đóng popup khi click ra ngoài vùng trắng
+        // Tự đóng khi bấm ra ngoài
         modalOverlay.addEventListener('click', (e) => {
             if (e.target === modalOverlay) {
                 modalOverlay.style.display = 'none';
             }
         });
 
-        // Khởi động trang web
         updateCategoryCounts();
         render();
     </script>
