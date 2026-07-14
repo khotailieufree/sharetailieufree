@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Hub - Kho Tìm Tài Liệu Miễn Phí</title>
-    <!-- Font chữ Inter cực sang trọng -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -452,42 +451,33 @@
 <body>
 
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <span class="badge-premium">Premium Hub</span>
             <h1>Tìm tài liệu bạn cần</h1>
             <p class="desc">Kho tài liệu chọn lọc và hoàn toàn miễn phí phục vụ cho công việc và học tập.</p>
         </div>
 
-        <!-- Ô Tìm Kiếm -->
         <div class="search-box-wrapper">
             <input type="text" id="searchInput" class="search-input" placeholder="Nhập tên tài liệu...">
             <span class="search-icon">🔍</span>
         </div>
 
-        <!-- Thanh điều hướng 3 TABS -->
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="switchTab('tab-danhmuc')">📁 Danh mục</button>
             <button class="tab-btn" onclick="switchTab('tab-khotailieu')">📚 Kho tài liệu</button>
             <button class="tab-btn" onclick="switchTab('tab-gioithieu')">ℹ️ Giới thiệu</button>
         </div>
 
-        <!-- ==================== NỘI DUNG CÁC TABS ==================== -->
-        
-        <!-- TAB 1: DANH MỤC -->
         <div id="tab-danhmuc" class="tab-content active">
             <div class="categories-grid" id="categoriesGrid">
-                <!-- Tự động kết xuất danh mục bằng Javascript -->
-            </div>
+                </div>
         </div>
 
-        <!-- TAB 2: KHO TÀI LIỆU -->
         <div id="tab-khotailieu" class="tab-content">
             <div class="results-count" id="resultsCount">Tất cả tài liệu</div>
             <div class="results-list" id="resultsList"></div>
         </div>
 
-        <!-- TAB 3: GIỚI THIỆU -->
         <div id="tab-gioithieu" class="tab-content">
             <div class="intro-card">
                 <div class="intro-avatar">🦁</div>
@@ -500,16 +490,13 @@
             </div>
         </div>
 
-        <!-- ==================== PHẦN GỢI Ý 5 FILE NGẪU NHIÊN (CỐ ĐỊNH Ở DƯỚI) ==================== -->
         <div class="recommend-section">
             <div class="recommend-title">✨ Đề xuất cho bạn (Ngẫu nhiên)</div>
             <div class="results-list" id="recommendList">
-                <!-- Javascript tự động render 5 tài liệu ngẫu nhiên tại đây -->
-            </div>
+                </div>
         </div>
     </div>
 
-    <!-- Popup Mở Khóa Shopee -> Drive -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-gift-icon" id="modalGiftIcon">🎁</div>
@@ -521,10 +508,14 @@
 
     <script>
         // ==========================================================
-        // KHO TÀI LIỆU CỦA BẠN (TỰ THÊM TÀI LIỆU MỚI TẠI ĐY)
+        // KHO TÀI LIỆU CỦA BẠN (TỰ THÊM TÀI LIỆU MỚI TẠI ĐÂY)
         // ==========================================================
         const documents = [
-            { title: “Mọt Canva - Hướng Dẫn Canva Cơ Bản Đến Nâng Cao” Cho Người Mới", category: "Thiết kế", driveUrl: "https://drive.google.com" },
+            { 
+                title: "Mọt Canva - Hướng Dẫn Canva Cơ Bản Đến Nâng Cao Cho Người Mới.pdf", 
+                category: "Marketing", 
+                driveUrl: "https://drive.google.com" 
+            },
             { title: "Kế Hoạch Khai Trương Cửa Hàng Bán Lẻ chi tiết.docx", category: "Vận hành", size: "450 KB", driveUrl: "https://drive.google.com" },
             { title: "Trọn bộ 500 từ vựng luyện thi HSK 3.pdf", category: "Tiếng Trung", size: "1.2 MB", driveUrl: "https://drive.google.com" },
             { title: "Báo Cáo Doanh Thu Theo Tháng Tự Động.xlsx", category: "Kinh doanh", size: "90 KB", driveUrl: "https://drive.google.com" },
@@ -649,13 +640,15 @@
 
             filtered.forEach(doc => {
                 const style = getFileStyle(doc.title);
+                const sizeText = doc.size ? ` · ${doc.size}` : ""; // Ẩn size thông minh nếu không điền
+                
                 const item = document.createElement('div');
                 item.className = 'result-item';
                 item.innerHTML = `
                     <div class="doc-icon ${style.className}">${style.icon}</div>
                     <div class="doc-info">
                         <div class="doc-title">${doc.title}</div>
-                        <div class="doc-meta">Drive · ${doc.size} <span class="doc-tag">${doc.category}</span></div>
+                        <div class="doc-meta">Drive${sizeText} <span class="doc-tag">${doc.category}</span></div>
                     </div>
                     <button class="btn-download" onclick="triggerUnlock('${doc.driveUrl}')">Tải về</button>
                 `;
@@ -666,19 +659,20 @@
         // Render 5 tài liệu ngẫu nhiên (Dưới cùng)
         function renderRandomRecommendations() {
             recommendList.innerHTML = "";
-            // Đảo lộn thứ tự tài liệu rồi lấy 5 file đầu tiên
             const shuffled = [...documents].sort(() => 0.5 - Math.random());
             const selected = shuffled.slice(0, 5);
 
             selected.forEach(doc => {
                 const style = getFileStyle(doc.title);
+                const sizeText = doc.size ? ` · ${doc.size}` : ""; // Ẩn size thông minh nếu không điền
+
                 const item = document.createElement('div');
                 item.className = 'result-item';
                 item.innerHTML = `
                     <div class="doc-icon ${style.className}">${style.icon}</div>
                     <div class="doc-info">
                         <div class="doc-title">${doc.title}</div>
-                        <div class="doc-meta">Drive · ${doc.size} <span class="doc-tag">${doc.category}</span></div>
+                        <div class="doc-meta">Drive${sizeText} <span class="doc-tag">${doc.category}</span></div>
                     </div>
                     <button class="btn-download" onclick="triggerUnlock('${doc.driveUrl}')">Tải về</button>
                 `;
