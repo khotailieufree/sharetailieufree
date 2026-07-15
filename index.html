@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trạm Tri Thức - Kho Tìm Tài Liệu Miễn Phí</title>
-    <!-- Nhúng font chữ Roboto từ Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -56,7 +55,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            padding: 20px 16px 80px 16px; /* Để trống chân trang không đè nút giỏ hàng */
+            padding: 20px 16px 90px 16px; /* Để trống chân trang không đè các nút cố định */
         }
 
         .container {
@@ -202,7 +201,7 @@
             box-shadow: 0 4px 14px var(--glow-color);
         }
 
-        /* THANH BỘ LỌC PHỤ */
+        /* THANH BỘ LỌC PHỤ (SUB-FILTER) */
         .sub-filter-bar {
             display: flex;
             gap: 8px;
@@ -460,7 +459,7 @@
             border-color: var(--primary-green);
         }
 
-        /* NÚT BALO LỘ TRÌNH CỐ ĐỊNH */
+        /* 🎒 CẤU HÌNH CÁC NÚT CỐ ĐỊNH Ở CHÂN TRANG */
         .fixed-cart-btn {
             position: fixed;
             bottom: 20px;
@@ -479,6 +478,27 @@
             gap: 8px;
             z-index: 999;
             animation: pulseGlow 2s infinite;
+        }
+
+        /* 🔝 NÚT VỀ ĐẦU TRANG SMART UX (MỤC 2) */
+        .fixed-top-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            display: none; /* Mặc định ẩn, kéo xuống mới hiện */
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
         }
 
         @keyframes pulseGlow {
@@ -628,30 +648,25 @@
 <body>
 
     <div class="container">
-        <!-- Nút theme -->
         <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Đổi giao diện Sáng/Tối">🌙</button>
 
-        <!-- Header -->
         <div class="header">
             <span class="badge-premium">TRẠM TRI THỨC</span>
             <h1>Tìm gì cũng có – Kho tài liệu dành riêng cho bạn</h1>
             <p class="desc"><span class="highlight-box">Tài liệu</span> chất, giá <span class="highlight-box">0đ</span> – Trợ thủ đắc lực cho học tập và công việc</p>
         </div>
 
-        <!-- Ô Tìm Kiếm -->
         <div class="search-box-wrapper">
             <input type="text" id="searchInput" class="search-input" placeholder="Nhập từ khóa rộng để tìm tài liệu...">
             <span class="search-icon">🔍</span>
         </div>
 
-        <!-- Thanh điều hướng 3 TABS CHÍNH -->
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="switchTab('tab-danhmuc')">DANH MỤC</button>
             <button class="tab-btn" onclick="switchTab('tab-khotailieu')">TÀI LIỆU FREE</button>
             <button class="tab-btn" onclick="switchTab('tab-gioithieu')">GIỚI THIỆU</button>
         </div>
 
-        <!-- THANH BỘ LỌC PHỤ (SUB-FILTER) HIỆN ĐẠI CUỘN NGANG -->
         <div class="sub-filter-bar" id="subFilterBar">
             <button class="filter-chip active" onclick="setSubFilter('all')">✨ Tất cả</button>
             <button class="filter-chip" onclick="setSubFilter('latest')">🕒 Mới cập nhật</button>
@@ -661,21 +676,17 @@
             <button class="filter-chip" onclick="setSubFilter('Template')">🎨 Template</button>
         </div>
 
-        <!-- Khung Loading -->
         <div id="loadingArea" class="loading">⏳ Đang cập nhật, đợi chút nha...</div>
 
         <div id="mainContent" style="display: none;">
-            <!-- TAB 1: DANH MỤC -->
             <div id="tab-danhmuc" class="tab-content active">
                 <div class="skill-tree-container" id="skillTreeContainer"></div>
             </div>
 
-            <!-- TAB 2: KHO TÀI LIỆU -->
             <div id="tab-khotailieu" class="tab-content">
                 <div class="results-list" id="resultsList"></div>
             </div>
 
-            <!-- TAB 3: GIỚI THIỆU -->
             <div id="tab-gioithieu" class="tab-content">
                 <div class="intro-card">
                     <div class="intro-avatar">💡</div>
@@ -690,7 +701,6 @@
                     </div>
                 </div>
 
-                <!-- HỘP GÓP Ý & YÊU CẦU TÀI LIỆU -->
                 <div class="request-box-card">
                     <div class="request-box-title">📥 Hộp Yêu Cầu Tài Liệu</div>
                     <p class="request-box-desc">Bạn đang cần tìm khóa học hay bộ template nào mà Trạm chưa có? Hãy nhắn cho tụi mình biết nhé, Trạm hỗ trợ tìm kiếm nhiệt tình luôn nha!</p>
@@ -699,25 +709,23 @@
                 </div>
             </div>
 
-            <!-- PHẦN GỢI Ý CỐ ĐỊNH Ở DƯỚI -->
             <div class="recommend-section">
                 <div class="recommend-title">✨ Có thể bạn cần (gợi ý)</div>
                 <div class="results-list" id="recommendList"></div>
             </div>
 
-            <!-- FOOTER LỜI NHẮN TRUYỀN ĐỘNG LỰC DƯỚI CHÂN TRANG -->
             <div class="motivational-footer">
                 <p class="motivational-text" id="motivationalText">Hôm nay bạn đã cố gắng nhiều rồi, học nốt một chút rồi nghỉ ngơi sớm nha! 🥰</p>
             </div>
         </div>
     </div>
 
-    <!-- 🎒 NÚT BALO LỘ TRÌNH HỌC (GIỎ HÀNG CÁ NHÂN) CỐ ĐỊNH -->
     <button class="fixed-cart-btn" id="fixedCartBtn" onclick="openCartModal()">
         🎒 Lộ trình của tôi <span id="cartCount">[0]</span>
     </button>
 
-    <!-- Popup Mở Khóa Khóa Học Thông Thường -->
+    <button class="fixed-top-btn" id="fixedTopBtn" onclick="scrollToTop()" title="Lên đầu trang">▲</button>
+
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-gift-icon" id="modalGiftIcon">🎁</div>
@@ -734,7 +742,6 @@
         </div>
     </div>
 
-    <!-- Popup Quản Lý Lộ Trình (Giỏ Hàng) - CẬP NHẬT TRỰC TIẾP KHÔNG QUA SHOPEE -->
     <div class="modal-overlay" id="cartModalOverlay">
         <div class="modal" style="max-width: 440px;">
             <div class="modal-gift-icon">🎒</div>
@@ -789,7 +796,6 @@
             "cap": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>`
         };
 
-        // CẬP NHẬT SƠ ĐỒ: Đã xóa Google và bổ sung Video Editor vào đúng Lộ trình
         const skillTreeStructure = [
             { stageTitle: "🌱 Giai đoạn 1: Khởi động nền tảng", categories: ["Sinh viên", "Ngoại ngữ", "Kỹ năng mềm"] },
             { stageTitle: "📊 Giai đoạn 2: Kỹ năng văn phòng & Sáng tạo", categories: ["Văn phòng", "Thiết kế", "Video Editor"] },
@@ -811,7 +817,7 @@
             "Kiếm tiền online": { icon: svgIcons["Kiếm tiền online"], color: "#f59e0b" },
             "Youtube": { icon: svgIcons["Youtube"], color: "#ef4444" },
             "Facebook": { icon: svgIcons["Facebook"], color: "#1877f2" },
-            "Video Editor": { icon: svgIcons["Video Editor"], color: "#a855f7" }, /* Purple Violet */
+            "Video Editor": { icon: svgIcons["Video Editor"], color: "#a855f7" }, 
             "Kinh doanh": { icon: svgIcons["Kinh doanh"], color: "#0f766e" },
             "Sinh viên": { icon: svgIcons["Sinh viên"], color: "#64748b" },
             "Khác": { icon: svgIcons["Khác"], color: "#94a3b8" }
@@ -823,6 +829,9 @@
         let selectedSubFilter = "all";
         let pendingDriveUrl = "";
         let pendingShopeeUrl = "";
+
+        // 🎭 BIẾN LƯU VỊ TRÍ CUỘN TRANG & BỘ LỌC CŨ CỦA KHÁCH
+        let lastScrollPositions = { 'tab-danhmuc': 0, 'tab-khotailieu': 0, 'tab-gioithieu': 0 };
 
         const searchInput = document.getElementById('searchInput');
         const resultsList = document.getElementById('resultsList');
@@ -842,9 +851,41 @@
         const cartModalOverlay = document.getElementById('cartModalOverlay');
         const cartListItems = document.getElementById('cartListItems');
         const cartCount = document.getElementById('cartCount');
+        const fixedTopBtn = document.getElementById('fixedTopBtn');
 
-        document.getElementById('motivationalText').innerText = motivationalSayings[Math.floor(Math.random() * motivationalSayings.length)];
-        document.getElementById('shopeeIntroLink').href = linkShopeeCuaBan;
+        // 🌙 TỰ ĐỘNG BẬT DARK MODE BAN ĐÊM (MỤC 3)
+        function autoNightMode() {
+            const currentHour = new Date().getHours();
+            const savedTheme = localStorage.getItem('theme');
+            // Nếu khách chưa từng tự bấm nút đổi giao diện, tự động bật Dark Mode từ 18:00 tối đến 6:00 sáng
+            if (!savedTheme) {
+                if (currentHour >= 18 || currentHour < 6) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    updateToggleButton('dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    updateToggleButton('light');
+                }
+            } else {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                updateToggleButton(savedTheme);
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme); 
+            updateToggleButton(newTheme);
+        }
+
+        function updateToggleButton(theme) {
+            const btn = document.getElementById('themeToggleBtn');
+            btn.innerText = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        autoNightMode();
 
         async function fetchGoogleSheetsData() {
             try {
@@ -882,7 +923,13 @@
             }
         }
 
+        // 🎭 GIỮ NGUYÊN VỊ TRÍ CUỘN TRANG VÀ BỘ LỌC CŨ KHI CHUYỂN TAB (MỤC 4)
         window.switchTab = function(tabId) {
+            const currentActiveTab = document.querySelector('.tab-content.active');
+            if (currentActiveTab) {
+                lastScrollPositions[currentActiveTab.id] = window.scrollY; // Lưu lại tọa độ cuộn của tab cũ
+            }
+
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
@@ -890,6 +937,9 @@
             if (targetBtn) targetBtn.classList.add('active');
             
             document.getElementById(tabId).classList.add('active');
+
+            // Khôi phục lại đúng tọa độ cuộn cũ của tab vừa mở khóa
+            window.scrollTo({ top: lastScrollPositions[tabId], behavior: 'auto' });
         }
 
         window.setSubFilter = function(filterType) {
@@ -900,6 +950,19 @@
             switchTab('tab-khotailieu');
             render();
         }
+
+        // 🔝 LOGIC NÚT VỀ ĐẦU TRANG SMART UX (MỤC 2)
+        window.onscroll = function() {
+            if (window.scrollY > 350) {
+                fixedTopBtn.style.display = "flex";
+            } else {
+                fixedTopBtn.style.display = "none";
+            }
+        };
+
+        window.scrollToTop = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
 
         function getFileStyle(doc) {
             const fileName = doc.title.toLowerCase();
@@ -1025,7 +1088,6 @@
             cartCount.innerText = `[${savedRouteCart.length}]`;
         }
 
-        // TỐI ƯU: Popup giỏ hàng hiển thị nút "Vào học" trực tiếp siêu mượt, không điều hướng sang Shopee
         window.openCartModal = function() {
             cartListItems.innerHTML = "";
             if (savedRouteCart.length === 0) {
