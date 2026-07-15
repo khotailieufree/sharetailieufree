@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Hub - Kho Tìm Tài Liệu Miễn Phí</title>
+    <title>Trạm Tri Thức - Kho Tìm Tài Liệu Miễn Phí</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             /* MẶC ĐỊNH: CHẾ ĐỘ SÁNG (LIGHT MODE) */
-            --primary-green: #10b981;  /* Màu xanh logo Premium Hub */
+            --primary-green: #10b981;  /* Màu xanh logo Trạm Tri Thức */
             --primary-bg: #f8fafc;
             --card-bg: #ffffff;
             --border-light: #e2e8f0;
@@ -90,7 +90,7 @@
         .header {
             text-align: center;
             margin-bottom: 24px;
-            padding: 0 40px;
+            padding: 0 20px;
         }
 
         .badge-premium {
@@ -108,17 +108,29 @@
         }
 
         h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--text-main);
             letter-spacing: -0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
+            line-height: 1.3;
         }
 
         .desc {
             font-size: 13px;
             color: var(--text-sub);
-            line-height: 1.5;
+            line-height: 1.6;
+        }
+
+        /* Khung nhấn mạnh từ khóa trong mô tả */
+        .highlight-box {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            padding: 1px 6px;
+            border-radius: 6px;
+            font-weight: 700;
+            color: var(--primary-green);
         }
 
         /* Thanh tìm kiếm hiệu ứng phát sáng nền xanh */
@@ -156,7 +168,7 @@
             pointer-events: none;
         }
 
-        /* Menu 3 Tabs Hiệu ứng Xanh Premium Hub */
+        /* Menu 3 Tabs Hiệu ứng Xanh Trạm Tri Thức */
         .tabs-nav {
             display: flex;
             background: var(--tab-bg);
@@ -234,7 +246,6 @@
             justify-content: center;
             width: 24px;
             height: 24px;
-            /* Màu icon mặc định sẽ được ghi đè bằng CSS inline */
             color: var(--icon-color, var(--primary-green));
         }
 
@@ -341,6 +352,7 @@
             margin-left: 4px;
         }
 
+        /* Nút "Vào học" cao cấp tích hợp Icon SVG */
         .btn-download {
             background: var(--btn-download-bg);
             color: var(--primary-green);
@@ -352,6 +364,19 @@
             cursor: pointer;
             flex-shrink: 0;
             transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-download svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .btn-download:hover {
@@ -360,7 +385,7 @@
             box-shadow: 0 0 10px var(--glow-color);
         }
 
-        /* GIỚI THIỆU */
+        /* GIỚI THIỆU - TRẠM TRI THỨC */
         .intro-card {
             background: var(--card-bg);
             border: 1px solid var(--border-light);
@@ -370,8 +395,8 @@
         }
 
         .intro-avatar { font-size: 40px; margin-bottom: 12px; }
-        .intro-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
-        .intro-text { font-size: 13px; color: var(--text-sub); line-height: 1.6; margin-bottom: 16px; }
+        .intro-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--text-main); line-height: 1.4;}
+        .intro-text { font-size: 13px; color: var(--text-sub); line-height: 1.7; margin-bottom: 20px; text-align: justify;}
         .intro-links { display: flex; justify-content: center; gap: 10px; }
         
         .btn-link {
@@ -422,10 +447,10 @@
         .modal {
             background: var(--card-bg);
             border: 1px solid var(--border-light);
-            padding: 28px 20px;
+            padding: 28px 24px;
             border-radius: 20px;
             width: 90%;
-            max-width: 350px;
+            max-width: 360px;
             text-align: center;
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             animation: bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -436,31 +461,56 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        .modal-gift-icon { font-size: 40px; margin-bottom: 10px; }
-        .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
-        .modal-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; margin-bottom: 20px; }
+        .modal-gift-icon { font-size: 40px; margin-bottom: 12px; }
+        .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
+        .modal-desc { font-size: 13px; color: var(--text-sub); line-height: 1.6; margin-bottom: 20px; text-align: center;}
+        
+        .modal-note {
+            font-size: 11px;
+            color: #ef4444;
+            font-weight: 500;
+            margin-top: 14px;
+            line-height: 1.5;
+            background: rgba(239, 68, 68, 0.05);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px dashed rgba(239, 68, 68, 0.15);
+        }
 
         .btn-shopee {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             background: linear-gradient(135deg, #ff5722, #f4511e);
             color: white;
             text-decoration: none;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 13px;
+            border-radius: 12px;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 12.5px;
             margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(244, 81, 30, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .btn-shopee:active {
+            transform: scale(0.98);
         }
 
         .btn-drive {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
             text-decoration: none;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 13px;
+            border-radius: 12px;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 12.5px;
+            box-shadow: 0 4px 12px var(--glow-color);
         }
 
         .no-results {
@@ -485,9 +535,9 @@
         <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Đổi giao diện Sáng/Tối">🌙</button>
 
         <div class="header">
-            <span class="badge-premium">PREMIUM_HUB.EXE</span>
-            <h1>Tìm tài liệu bạn cần</h1>
-            <p class="desc">Kho tài liệu chọn lọc và hoàn toàn miễn phí phục vụ cho công việc và học tập.</p>
+            <span class="badge-premium">TRẠM TRI THỨC</span>
+            <h1>Tìm gì cũng có – Kho tài liệu dành riêng cho bạn</h1>
+            <p class="desc"><span class="highlight-box">Tài liệu</span> chất, giá <span class="highlight-box">0đ</span> – Trợ thủ đắc lực cho học tập và công việc</p>
         </div>
 
         <div class="search-box-wrapper">
@@ -514,9 +564,12 @@
 
             <div id="tab-gioithieu" class="tab-content">
                 <div class="intro-card">
-                    <div class="intro-avatar">🦁</div>
-                    <div class="intro-title">Chào mừng bạn đến với Premium Hub!</div>
-                    <p class="intro-text">Chúng mình chia sẻ những template, tài liệu vận hành và kế toán tuyển chọn. Nhằm có ngân sách duy trì trang web, tụi mình có tham gia kiếm tiền từ tiếp thị liên kết Shopee. Rất mong nhận được sự ủng hộ nhiệt tình từ các bạn!</p>
+                    <div class="intro-avatar">💡</div>
+                    <div class="intro-title">Gửi trao giá trị từ Trạm Tri Thức</div>
+                    <p class="intro-text">
+                        Nơi đây tụi mình gom góp và chia sẻ đa dạng những template, tài liệu chọn lọc nhất — hoàn toàn miễn phí gửi đến bạn.<br><br>
+                        Để Trạm Tri Thức nhỏ này luôn sáng đèn và có kinh phí duy trì hoạt động, tụi mình có tham gia một góc nhỏ Affiliate cùng Shopee. Mỗi lượt ủng hộ từ các bạn, dù là nhỏ nhất, đều là niềm động viên to lớn để tụi mình tiếp tục hành trình chia sẻ này. Cảm ơn bạn đã ghé chơi và đồng hành cùng tụi mình nhé!
+                    </p>
                     <div class="intro-links">
                         <a href="https://s.shopee.vn/70IXpBepnD" target="_blank" class="btn-link" id="shopeeIntroLink">🔥 Ghé Shop Shopee</a>
                         <a href="https://facebook.com" target="_blank" class="btn-link">💬 Fanpage hỗ trợ</a>
@@ -534,9 +587,10 @@
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-gift-icon" id="modalGiftIcon">🎁</div>
-            <div class="modal-title" id="modalTitle">Mở Khóa Link Tải</div>
-            <p class="modal-desc" id="modalDesc">Bạn ơi, ghé thăm Shopee của tụi mình trong 5 giây để lấy link tải Google Drive nhé!</p>
+            <div class="modal-title" id="modalTitle">Mở khoá Link học</div>
+            <p class="modal-desc" id="modalDesc">Bạn ơi, ghé thăm Shopee trong 5s sau đó quay lại để lấy link học Google Drive nhé!</p>
             <div id="modalActionArea"></div>
+            <div class="modal-note">Lưu ý: Mở tài liệu bằng trình duyệt để trải nghiệm tốt nhất nha.</div>
         </div>
     </div>
 
@@ -570,7 +624,9 @@
             "pdf": `<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`,
             "excel": `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>`,
             "word": `<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
-            "zip": `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="3" x2="12" y2="15"/><circle cx="12" cy="18" r="2"/></svg>`
+            "zip": `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="3" x2="12" y2="15"/><circle cx="12" cy="18" r="2"/></svg>`,
+            // Icon "Vào học" (Mũ tốt nghiệp)
+            "cap": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>`
         };
 
         // Bản đồ icon & Gán màu sắc đặc trưng (Brand Color) cho từng danh mục
@@ -760,7 +816,9 @@
                         <div class="doc-title">${doc.title}</div>
                         <div class="doc-meta">Drive${sizeText} <span class="doc-tag" style="color: ${style.color}; background-color: ${style.color}14">${doc.category}</span></div>
                     </div>
-                    <button class="btn-download" onclick="triggerUnlock('${doc.driveUrl}', '${doc.shopeeUrl}')">Tải về</button>
+                    <button class="btn-download" style="color: ${style.color}; border-color: ${style.color}" onmouseover="this.style.backgroundColor='${style.color}'; this.style.color='#ffffff'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='${style.color}'" onclick="triggerUnlock('${doc.driveUrl}', '${doc.shopeeUrl}')">
+                        ${svgIcons["cap"]} Vào học
+                    </button>
                 `;
                 resultsList.appendChild(item);
             });
@@ -783,7 +841,9 @@
                         <div class="doc-title">${doc.title}</div>
                         <div class="doc-meta">Drive${sizeText} <span class="doc-tag" style="color: ${style.color}; background-color: ${style.color}14">${doc.category}</span></div>
                     </div>
-                    <button class="btn-download" onclick="triggerUnlock('${doc.driveUrl}', '${doc.shopeeUrl}')">Tải về</button>
+                    <button class="btn-download" style="color: ${style.color}; border-color: ${style.color}" onmouseover="this.style.backgroundColor='${style.color}'; this.style.color='#ffffff'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='${style.color}'" onclick="triggerUnlock('${doc.driveUrl}', '${doc.shopeeUrl}')">
+                        ${svgIcons["cap"]} Vào học
+                    </button>
                 `;
                 recommendList.appendChild(item);
             });
@@ -794,17 +854,25 @@
             pendingShopeeUrl = (shopeeUrl && shopeeUrl.trim() !== "") ? shopeeUrl : linkShopeeCuaBan;
 
             modalGiftIcon.innerText = "🎁";
-            modalTitle.innerText = "Mở Khóa Link Tải";
-            modalDesc.innerText = "Bạn ơi, ghé thăm Shopee của tụi mình trong 5 giây để lấy link tải Google Drive nhé!";
-            modalActionArea.innerHTML = `<a href="${pendingShopeeUrl}" target="_blank" class="btn-shopee" id="shopeeBtn">Đi tới Shopee</a>`;
+            modalTitle.innerText = "Mở khoá Link học";
+            modalDesc.innerText = "Bạn ơi, ghé thăm Shopee trong 5s sau đó quay lại để lấy link học Google Drive nhé!";
+            modalActionArea.innerHTML = `
+                <a href="${pendingShopeeUrl}" target="_blank" class="btn-shopee" id="shopeeBtn">
+                    🥰 Ok, tui sẽ ghé Shopee xíu xong quay lại liền nè
+                </a>
+            `;
             modalOverlay.style.display = 'flex';
 
             document.getElementById('shopeeBtn').addEventListener('click', () => {
                 setTimeout(() => {
                     modalGiftIcon.innerText = "🎉";
                     modalTitle.innerText = "Đã Mở Khóa Thành Công!";
-                    modalDesc.innerText = "Cảm ơn sự ủng hộ của bạn! Hãy tải tài liệu Google Drive của bạn dưới đây:";
-                    modalActionArea.innerHTML = `<a href="${pendingDriveUrl}" target="_blank" class="btn-drive" id="driveBtn">Tải tài liệu ngay</a>`;
+                    modalDesc.innerText = "Cảm ơn sự ủng hộ cực kỳ đáng quý từ bạn! Hãy truy cập lớp học ở nút dưới đây nha:";
+                    modalActionArea.innerHTML = `
+                        <a href="${pendingDriveUrl}" target="_blank" class="btn-drive" id="driveBtn">
+                            📚 Vào học ngay thôi nào
+                        </a>
+                    `;
 
                     document.getElementById('driveBtn').addEventListener('click', () => {
                         setTimeout(() => {
