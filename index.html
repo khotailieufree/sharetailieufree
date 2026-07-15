@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trạm Tri Thức - Kho Tìm Tài Liệu Miễn Phí</title>
+    <!-- Nhúng font chữ Roboto từ Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -19,6 +20,7 @@
             --tab-active-bg: linear-gradient(135deg, #10b981, #059669);
             --btn-download-bg: #f1f5f9;
             --gradient-card: linear-gradient(135deg, rgba(16, 185, 129, 0.02), rgba(5, 150, 105, 0.02));
+            --filter-btn-bg: #ffffff;
         }
 
         [data-theme="dark"] {
@@ -34,6 +36,7 @@
             --tab-active-bg: linear-gradient(135deg, #10b981, #059669);
             --btn-download-bg: #1f2937;
             --gradient-card: linear-gradient(135deg, rgba(16, 185, 129, 0.03), rgba(5, 150, 105, 0.03));
+            --filter-btn-bg: #1f2937;
         }
 
         * {
@@ -133,7 +136,7 @@
             color: var(--primary-green);
         }
 
-        /* Thanh tìm kiếm hiệu ứng phát sáng nền xanh */
+        /* Thanh tìm kiếm */
         .search-box-wrapper {
             position: relative;
             margin-bottom: 20px;
@@ -174,7 +177,7 @@
             background: var(--tab-bg);
             padding: 4px;
             border-radius: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             border: 1px solid var(--border-light);
         }
 
@@ -196,6 +199,47 @@
             background: var(--tab-active-bg);
             color: #ffffff;
             box-shadow: 0 4px 14px var(--glow-color);
+        }
+
+        /* THANH BỘ LỌC PHỤ (SUB-FILTER) - CUỘN NGANG HIỆN ĐẠI */
+        .sub-filter-bar {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 4px 2px 14px 2px;
+            margin-bottom: 12px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .sub-filter-bar::-webkit-scrollbar {
+            display: none; /* Ẩn thanh cuộn để nhìn gọn gàng */
+        }
+
+        .filter-chip {
+            white-space: nowrap;
+            background-color: var(--filter-btn-bg);
+            border: 1px solid var(--border-light);
+            color: var(--text-sub);
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .filter-chip:hover {
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .filter-chip.active {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+            box-shadow: 0 0 10px var(--glow-color);
         }
 
         .tab-content {
@@ -233,7 +277,6 @@
             gap: 12px;
         }
 
-        /* Đổi màu viền theo biến màu động được gán từ JS */
         .category-card:hover {
             border-color: var(--hover-color, var(--primary-green));
             transform: translateY(-2px);
@@ -249,7 +292,6 @@
             color: var(--icon-color, var(--primary-green));
         }
 
-        /* Định dạng icon SVG đồng bộ */
         .category-card .cat-icon svg {
             width: 20px;
             height: 20px;
@@ -291,7 +333,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            cursor: pointer; /* Nhấn vào khung để xem thông tin chi tiết */
+            cursor: pointer;
             transition: all 0.2s ease;
         }
 
@@ -328,7 +370,6 @@
             min-width: 0;
         }
 
-        /* Hiện đầy đủ tiêu đề, cỡ chữ 12px vừa vặn tinh tế */
         .doc-title {
             font-size: 12px;
             font-weight: 700;
@@ -358,7 +399,7 @@
             font-weight: 700;
         }
 
-        /* Nút "Vào học" cao cấp tích hợp Icon SVG */
+        /* Nút "Vào học" cao cấp */
         .btn-download {
             background: var(--btn-download-bg);
             color: var(--primary-green);
@@ -487,7 +528,6 @@
             text-align: center;
         }
         
-        /* Hộp hiển thị Tác giả và Mô tả ngắn */
         .modal-meta-box {
             background: var(--primary-bg);
             border-radius: 10px;
@@ -579,36 +619,54 @@
 <body>
 
     <div class="container">
+        <!-- Nút theme -->
         <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Đổi giao diện Sáng/Tối">🌙</button>
 
+        <!-- Header -->
         <div class="header">
             <span class="badge-premium">TRẠM TRI THỨC</span>
             <h1>Tìm gì cũng có – Kho tài liệu dành riêng cho bạn</h1>
             <p class="desc"><span class="highlight-box">Tài liệu</span> chất, giá <span class="highlight-box">0đ</span> – Trợ thủ đắc lực cho học tập và công việc</p>
         </div>
 
+        <!-- Ô Tìm Kiếm -->
         <div class="search-box-wrapper">
             <input type="text" id="searchInput" class="search-input" placeholder="Nhập từ khóa rộng để tìm tài liệu...">
             <span class="search-icon">🔍</span>
         </div>
 
+        <!-- Thanh điều hướng 3 TABS CHÍNH -->
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="switchTab('tab-danhmuc')">DANH MỤC</button>
             <button class="tab-btn" onclick="switchTab('tab-khotailieu')">TÀI LIỆU FREE</button>
             <button class="tab-btn" onclick="switchTab('tab-gioithieu')">GIỚI THIỆU</button>
         </div>
 
+        <!-- THANH BỘ LỌC PHỤ (SUB-FILTER) HIỆN ĐẠI CUỘN NGANG -->
+        <div class="sub-filter-bar" id="subFilterBar">
+            <button class="filter-chip active" onclick="setSubFilter('all')">✨ Tất cả</button>
+            <button class="filter-chip" onclick="setSubFilter('latest')">🕒 Mới cập nhật</button>
+            <button class="filter-chip" onclick="setSubFilter('popular')">🔥 Được xem nhiều</button>
+            <button class="filter-chip" onclick="setSubFilter('Khóa học')">🎓 Khóa học</button>
+            <button class="filter-chip" onclick="setSubFilter('Tài liệu')">📚 Tài liệu</button>
+            <button class="filter-chip" onclick="setSubFilter('Template')">🎨 Template</button>
+        </div>
+
+        <!-- Khung Loading -->
         <div id="loadingArea" class="loading">⏳ Đang cập nhật, đợi chút nha...</div>
 
         <div id="mainContent" style="display: none;">
+            <!-- TAB 1: DANH MỤC -->
             <div id="tab-danhmuc" class="tab-content active">
                 <div class="categories-grid" id="categoriesGrid"></div>
             </div>
 
+            <!-- TAB 2: KHO TÀI LIỆU -->
             <div id="tab-khotailieu" class="tab-content">
                 <div class="results-list" id="resultsList"></div>
             </div>
 
+            <!-- TAB 3: GIỚI THIỆU -->
             <div id="tab-gioithieu" class="tab-content">
                 <div class="intro-card">
                     <div class="intro-avatar">💡</div>
@@ -624,6 +682,7 @@
                 </div>
             </div>
 
+            <!-- PHẦN GỢI Ý CỐ ĐỊNH Ở DƯỚI -->
             <div class="recommend-section">
                 <div class="recommend-title">✨ Có thể bạn cần (gợi ý)</div>
                 <div class="results-list" id="recommendList"></div>
@@ -631,30 +690,27 @@
         </div>
     </div>
 
+    <!-- Popup Mở Khóa -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-gift-icon" id="modalGiftIcon">🎁</div>
-            <div class="modal-title" id="modalTitle">Mở khoá Link học</div>
+            <div class="modal-title" id="modalTitle">Tiêu đề khóa học đầy đủ</div>
             
             <div class="modal-meta-box" id="modalMetaBox">
                 <div class="modal-meta-item" id="modalMetaAuthor"><span class="modal-meta-label">Tác giả:</span> ...</div>
                 <div class="modal-meta-item" id="modalMetaDesc"><span class="modal-meta-label">Mô tả:</span> ...</div>
             </div>
 
-            <p class="modal-desc" id="modalDesc">Bạn ơi, ghé thăm Shopee trong 5s rồi quay lại liền để lấy link tài liệu nhé!</p>
+            <p class="modal-desc" id="modalDesc">Bạn ơi, ghé thăm Shopee trong 5s sau đó quay lại để lấy link học Google Drive nhé!</p>
             <div id="modalActionArea"></div>
-            <div class="modal-note">Lưu ý: Mở website bằng trình duyệt để trải nghiệm tốt nhất nha.</div>
+            <div class="modal-note">Lưu ý: Mở tài liệu bằng trình duyệt để trải nghiệm tốt nhất nha.</div>
         </div>
     </div>
 
     <script>
-        // ID GOOGLE SHEETS
         const SPREADSHEET_ID = '1-1nlYGptmuQIOXCuYYMVA6nIp_-0uUG1B5vBcDwewJU';
-        
-        // Link Shopee mặc định
         const linkShopeeCuaBan = "https://s.shopee.vn/70IXpBepnD";
 
-        // Bộ sưu tập mã SVG tối giản siêu sang xịn mịn
         const svgIcons = {
             "Thiết kế": `<svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,
             "Lập trình": `<svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>`,
@@ -700,7 +756,6 @@
             "Khác": { icon: svgIcons["Khác"], color: "#94a3b8" }
         };
 
-        // Theme system
         function initTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
@@ -717,20 +772,14 @@
 
         function updateToggleButton(theme) {
             const btn = document.getElementById('themeToggleBtn');
-            if (theme === 'light') {
-                btn.innerText = '🌙';
-                btn.title = "Chuyển sang Giao diện Tối";
-            } else {
-                btn.innerText = '☀️';
-                btn.title = "Chuyển sang Giao diện Sáng";
-            }
+            btn.innerText = theme === 'light' ? '🌙' : '☀️';
         }
 
         initTheme();
 
-        // Logic
         let documents = [];
         let selectedCategoryFilter = "all";
+        let selectedSubFilter = "all"; // Bộ lọc phụ mặc định
         let pendingDriveUrl = "";
         let pendingShopeeUrl = "";
 
@@ -760,17 +809,17 @@
                 const data = JSON.parse(text.substring(47, text.length - 2));
                 const rows = data.table.rows;
                 
-                documents = rows.map(row => {
+                documents = rows.map((row, index) => {
                     return {
+                        id: index, // Lưu lại chỉ số dòng để tính toán "Mới cập nhật"
                         title: row.c[0] ? row.c[0].v : '',
                         category: row.c[1] ? row.c[1].v : 'Khác',
                         size: row.c[2] ? row.c[2].v : '',
                         driveUrl: row.c[3] ? row.c[3].v : 'https://drive.google.com',
                         shopeeUrl: row.c[4] ? row.c[4].v : '',
-                        // Cột F: Tác giả
-                        author: row.c[5] ? row.c[5].v : '',
-                        // Cột G: Mô tả ngắn
-                        shortDesc: row.c[6] ? row.c[6].v : ''
+                        author: row.c[5] ? row.c[5].v : '', // Cột F
+                        shortDesc: row.c[6] ? row.c[6].v : '', // Cột G
+                        type: row.c[7] ? row.c[7].v : 'Khóa học' // Cột H (Mặc định nếu trống là Khóa học)
                     };
                 }).filter(doc => doc.title !== "");
 
@@ -794,6 +843,18 @@
             if (targetBtn) targetBtn.classList.add('active');
             
             document.getElementById(tabId).classList.add('active');
+        }
+
+        // Thay đổi bộ lọc phụ khi click chip
+        window.setSubFilter = function(filterType) {
+            selectedSubFilter = filterType;
+            document.querySelectorAll('.filter-chip').forEach(btn => btn.classList.remove('active'));
+            
+            const targetBtn = Array.from(document.querySelectorAll('.filter-chip')).find(btn => btn.getAttribute('onclick').includes(`'${filterType}'`));
+            if (targetBtn) targetBtn.classList.add('active');
+            
+            switchTab('tab-khotailieu');
+            render();
         }
 
         function getFileStyle(doc) {
@@ -830,6 +891,10 @@
 
                 card.onclick = () => {
                     selectedCategoryFilter = cat;
+                    // Khi chọn danh mục cụ thể, reset bộ lọc phụ về 'all'
+                    document.querySelectorAll('.filter-chip').forEach(btn => btn.classList.remove('active'));
+                    document.querySelector('.filter-chip[onclick*="\'all\'"]').classList.add('active');
+                    selectedSubFilter = "all";
                     switchTab('tab-khotailieu');
                     render();
                 };
@@ -863,7 +928,7 @@
                         <span class="doc-tag" style="color: ${style.color}; background-color: ${style.color}14">${doc.category}</span>
                     </div>
                 </div>
-                <button class="btn-download" style="color: ${style.color}; border-color: ${style.color}" onmouseover="this.style.backgroundColor='${style.color}'; this.style.color='#ffffff'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='${style.color}'" onclick="triggerUnlock(JSON.parse(this.dataset.doc))">
+                <button class="btn-download" style="color: ${style.color}; border-color: ${style.color}" onmouseover="this.style.backgroundColor='${style.color}'; this.style.color='#ffffff'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='${style.color}'" onclick='triggerUnlock(JSON.parse(this.dataset.doc))'>
                     ${svgIcons["cap"]} Vào học
                 </button>
             `;
@@ -875,14 +940,27 @@
             const query = searchInput.value.toLowerCase().trim();
             resultsList.innerHTML = "";
 
-            const filtered = documents.filter(doc => {
+            // 1. Lọc theo ô tìm kiếm và danh mục lớn trước
+            let filtered = documents.filter(doc => {
                 const matchSearch = doc.title.toLowerCase().includes(query);
                 const matchCategory = selectedCategoryFilter === "all" || doc.category === selectedCategoryFilter;
                 return matchSearch && matchCategory;
             });
 
+            // 2. ⚡ ÁP DỤNG BỘ LỌC PHỤ NÂNG CAO (SUB-FILTER)
+            if (selectedSubFilter === "latest") {
+                // Mới cập nhật: Đảo ngược mảng để những dòng cuối Sheets hiện lên trước
+                filtered = [...filtered].sort((a, b) => b.id - a.id);
+            } else if (selectedSubFilter === "popular") {
+                // Được xem nhiều: Xáo trộn ngẫu nhiên một cách tự nhiên
+                filtered = [...filtered].sort(() => 0.5 - Math.random());
+            } else if (selectedSubFilter === "Khóa học" || selectedSubFilter === "Tài liệu" || selectedSubFilter === "Template") {
+                // Khóa học, Tài liệu, Template: Lọc theo cột H chính xác
+                filtered = filtered.filter(doc => doc.type === selectedSubFilter);
+            }
+
             if (filtered.length === 0) {
-                resultsList.innerHTML = `<div class="no-results">Không tìm thấy tài liệu phù hợp... 😢</div>`;
+                resultsList.innerHTML = `<div class="no-results">Không tìm thấy tài liệu phù hợp ở mục này... 😢</div>`;
                 return;
             }
 
@@ -917,7 +995,7 @@
             modalDesc.innerText = "Bạn ơi, ghé thăm Shopee trong 5s sau đó quay lại để lấy link học Google Drive nhé!";
             modalActionArea.innerHTML = `
                 <a href="${pendingShopeeUrl}" target="_blank" class="btn-shopee" id="shopeeBtn">
-                    🥰 Ok, tui sẽ ghé Shopee xíu xong quay lại liền
+                    🥰 Ok, tui sẽ ghé Shopee xíu xong quay lại liền nè
                 </a>
             `;
             modalOverlay.style.display = 'flex';
@@ -928,7 +1006,7 @@
                     modalTitle.innerText = "Đã Mở Khóa Thành Công!";
                     modalMetaAuthor.innerHTML = `<span class="modal-meta-label">Chúc bạn học tốt:</span> ${doc.title}`;
                     modalMetaDesc.innerHTML = `<span class="modal-meta-label">Người chia sẻ:</span> ${authorDisplay}`;
-                    modalDesc.innerText = "Cảm ơn sự ủng hộ cực kỳ đáng quý từ bạn! Hãy truy cập tài liệu ở nút dưới đây nha:";
+                    modalDesc.innerText = "Cảm ơn sự ủng hộ cực kỳ đáng quý từ bạn! Hãy truy cập lớp học ở nút dưới đây nha:";
                     modalActionArea.innerHTML = `
                         <a href="${pendingDriveUrl}" target="_blank" class="btn-drive" id="driveBtn">
                             📚 Vào học ngay thôi nào
