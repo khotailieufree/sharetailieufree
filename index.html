@@ -4,35 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Hub - Kho Tìm Tài Liệu Miễn Phí</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Định nghĩa Palette màu cho 2 chế độ Sáng/Tối */
         :root {
-            /* MẶC ĐỊNH: CHẾ ĐỘ TỐI (DARK MODE) */
-            --primary-green: #10b981;  /* Xanh neon emerald */
-            --primary-bg: #0b0f19;     /* Nền tối sâu thẳm */
-            --card-bg: #111827;        /* Nền thẻ */
-            --border-light: #1f2937;   /* Viền mờ */
-            --text-main: #f3f4f6;      /* Chữ chính */
-            --text-sub: #9ca3af;       /* Chữ phụ */
+            /* MẶC ĐỊNH: CHẾ ĐỘ SÁNG (LIGHT MODE) */
+            --primary-green: #059669;
+            --primary-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border-light: #e2e8f0;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --glow-color: rgba(5, 150, 105, 0.08);
+            --tab-bg: #f1f5f9;
+            --tab-active-bg: #ffffff;
+            --btn-download-bg: #f1f5f9;
+            --gradient-card: linear-gradient(135deg, rgba(5, 150, 105, 0.03), rgba(16, 185, 129, 0.03));
+        }
+
+        [data-theme="dark"] {
+            /* CHẾ ĐỘ TỐI (DARK MODE) */
+            --primary-green: #10b981;
+            --primary-bg: #0b0f19;
+            --card-bg: #111827;
+            --border-light: #1f2937;
+            --text-main: #f3f4f6;
+            --text-sub: #9ca3af;
             --glow-color: rgba(16, 185, 129, 0.15);
             --tab-bg: #111827;
             --tab-active-bg: #1f2937;
             --btn-download-bg: #1f2937;
-        }
-
-        /* LỚP PHỦ CHẾ ĐỘ SÁNG (LIGHT MODE) */
-        [data-theme="light"] {
-            --primary-green: #059669;  /* Xanh lục đậm hơn dễ nhìn trên nền sáng */
-            --primary-bg: #f3f4f6;     /* Nền sáng nhạt */
-            --card-bg: #ffffff;        /* Thẻ nền trắng tinh */
-            --border-light: #e5e7eb;   /* Viền xám sáng */
-            --text-main: #1f2937;      /* Chữ chính màu tối */
-            --text-sub: #4b5563;       /* Chữ phụ màu xám đậm */
-            --glow-color: rgba(5, 150, 105, 0.1);
-            --tab-bg: #e5e7eb;
-            --tab-active-bg: #ffffff;
-            --btn-download-bg: #f3f4f6;
+            --gradient-card: linear-gradient(135deg, rgba(16, 185, 129, 0.03), rgba(5, 150, 105, 0.03));
         }
 
         * {
@@ -41,7 +42,7 @@
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
         }
 
         body {
@@ -60,7 +61,7 @@
             position: relative;
         }
 
-        /* Nút Chuyển Đổi Sáng/Tối ở góc phải */
+        /* Nút chuyển theme tròn mượt */
         .theme-toggle-btn {
             position: absolute;
             top: 0;
@@ -76,7 +77,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             z-index: 100;
         }
 
@@ -85,26 +86,26 @@
             transform: scale(1.05);
         }
 
-        /* Phần Header */
+        /* Tiêu đề */
         .header {
             text-align: center;
             margin-bottom: 24px;
-            padding-right: 40px; /* Tránh đè nút theme */
-            padding-left: 40px;
+            padding: 0 40px;
         }
 
         .badge-premium {
             display: inline-block;
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 20px;
             letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.15);
             margin-bottom: 12px;
+            font-family: 'Fira Code', monospace;
         }
 
         h1 {
@@ -121,7 +122,7 @@
             line-height: 1.5;
         }
 
-        /* Ô Tìm Kiếm */
+        /* Khung tìm kiếm */
         .search-box-wrapper {
             position: relative;
             margin-bottom: 16px;
@@ -137,7 +138,7 @@
             outline: none;
             background-color: var(--card-bg);
             color: var(--text-main);
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02);
             transition: all 0.3s ease;
         }
 
@@ -156,12 +157,12 @@
             pointer-events: none;
         }
 
-        /* 3 TABS */
+        /* Menu 3 Tabs */
         .tabs-nav {
             display: flex;
             background: var(--tab-bg);
-            padding: 5px;
-            border-radius: 14px;
+            padding: 4px;
+            border-radius: 12px;
             margin-bottom: 20px;
             border: 1px solid var(--border-light);
         }
@@ -175,8 +176,8 @@
             font-weight: 600;
             color: var(--text-sub);
             cursor: pointer;
-            border-radius: 10px;
-            transition: all 0.25s ease;
+            border-radius: 8px;
+            transition: all 0.2s ease;
             text-align: center;
         }
 
@@ -184,10 +185,9 @@
             background-color: var(--tab-active-bg);
             color: var(--primary-green);
             font-weight: 700;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
         }
 
-        /* Tab Content */
         .tab-content {
             display: none;
             animation: fadeIn 0.3s ease-out;
@@ -198,11 +198,11 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
+            from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ----- TAB 1: DANH MỤC ----- */
+        /* TAB 1: GRID DANH MỤC kiểu code màu Gradient viền */
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -211,9 +211,10 @@
 
         .category-card {
             background: var(--card-bg);
+            background-image: var(--gradient-card);
             border: 1px solid var(--border-light);
             border-radius: 12px;
-            padding: 16px;
+            padding: 14px 16px;
             text-align: left;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -225,16 +226,20 @@
         .category-card:hover {
             border-color: var(--primary-green);
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px var(--glow-color);
+            box-shadow: 0 4px 12px var(--glow-color);
         }
 
         .category-card .cat-icon {
-            font-size: 22px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
         }
 
         .category-card .cat-name {
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase; /* VIẾT HOA danh mục */
+            letter-spacing: 0.3px;
             color: var(--text-main);
         }
 
@@ -242,13 +247,13 @@
             font-size: 11px;
             color: var(--text-sub);
             margin-left: auto;
-            font-family: 'Fira Code', monospace;
+            font-family: 'Fira Code', monospace; /* Con số kiểu code */
+            font-weight: 600;
         }
 
-        /* ----- TAB 2 & 3: KHO TÀI LIỆU ----- */
+        /* TAB 2 & ĐỀ XUẤT: LIST TÀI LIỆU */
         .results-list {
             display: flex;
-            flex-grow: 1;
             flex-direction: column;
             gap: 12px;
         }
@@ -277,7 +282,7 @@
             justify-content: center;
             font-size: 20px;
             flex-shrink: 0;
-            background-color: var(--primary-bg);
+            background-color: var(--tab-bg);
         }
 
         .doc-info {
@@ -300,16 +305,18 @@
             font-size: 11px;
             color: var(--text-sub);
             font-weight: 500;
+            font-family: 'Fira Code', monospace; /* Dung lượng kiểu code */
         }
 
         .doc-tag {
             color: var(--primary-green);
-            background-color: rgba(16, 185, 129, 0.1);
+            background-color: rgba(16, 185, 129, 0.08);
             padding: 1px 6px;
             border-radius: 6px;
             font-size: 10px;
             font-weight: 600;
             margin-left: 4px;
+            font-family: 'Inter', sans-serif;
         }
 
         .btn-download {
@@ -331,7 +338,7 @@
             box-shadow: 0 0 10px var(--glow-color);
         }
 
-        /* ----- TAB 3: GIỚI THIỆU ----- */
+        /* TAB 3: GIỚI THIỆU */
         .intro-card {
             background: var(--card-bg);
             border: 1px solid var(--border-light);
@@ -382,7 +389,7 @@
             color: var(--primary-green);
         }
 
-        /* ==================== PHẦN GỢI Ý CỐ ĐỊNH Ở DƯỚI ==================== */
+        /* ĐỀ XUẤT CỐ ĐỊNH PHÍA DƯỚI */
         .recommend-section {
             margin-top: 30px;
             border-top: 1px dashed var(--border-light);
@@ -477,6 +484,7 @@
             font-size: 11px;
             color: var(--text-sub);
             margin-bottom: 12px;
+            font-family: 'Fira Code', monospace;
         }
 
         .no-results {
@@ -492,6 +500,7 @@
             color: var(--primary-green);
             font-size: 14px;
             font-weight: 600;
+            font-family: 'Fira Code', monospace;
         }
     </style>
 </head>
@@ -501,7 +510,7 @@
         <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Đổi giao diện Sáng/Tối">🌙</button>
 
         <div class="header">
-            <span class="badge-premium">Premium Hub</span>
+            <span class="badge-premium">PREMIUM_HUB.EXE</span>
             <h1>Tìm tài liệu bạn cần</h1>
             <p class="desc">Kho tài liệu chọn lọc và hoàn toàn miễn phí phục vụ cho công việc và học tập.</p>
         </div>
@@ -517,7 +526,7 @@
             <button class="tab-btn" onclick="switchTab('tab-gioithieu')">ℹ️ Giới thiệu</button>
         </div>
 
-        <div id="loadingArea" class="loading">⏳ Đang tải dữ liệu từ Google Sheets...</div>
+        <div id="loadingArea" class="loading">⏳ Fetching database from Google Sheets...</div>
 
         <div id="mainContent" style="display: none;">
             <div id="tab-danhmuc" class="tab-content active">
@@ -525,7 +534,7 @@
             </div>
 
             <div id="tab-khotailieu" class="tab-content">
-                <div class="results-count" id="resultsCount">Tất cả tài liệu</div>
+                <div class="results-count" id="resultsCount">TOTAL_ITEMS: [0]</div>
                 <div class="results-list" id="resultsList"></div>
             </div>
 
@@ -535,7 +544,7 @@
                     <div class="intro-title">Chào mừng bạn đến với Premium Hub!</div>
                     <p class="intro-text">Chúng mình chia sẻ những template, tài liệu vận hành và kế toán tuyển chọn. Nhằm có ngân sách duy trì trang web, tụi mình có tham gia kiếm tiền từ tiếp thị liên kết Shopee. Rất mong nhận được sự ủng hộ nhiệt tình từ các bạn!</p>
                     <div class="intro-links">
-                        <a href="https://shopee.vn" target="_blank" class="btn-link" id="shopeeIntroLink">🔥 Ghé Shop Shopee</a>
+                        <a href="https://s.shopee.vn/70IXpBepnD" target="_blank" class="btn-link" id="shopeeIntroLink">🔥 Ghé Shop Shopee</a>
                         <a href="https://facebook.com" target="_blank" class="btn-link">💬 Fanpage hỗ trợ</a>
                     </div>
                 </div>
@@ -552,75 +561,77 @@
         <div class="modal">
             <div class="modal-gift-icon" id="modalGiftIcon">🎁</div>
             <div class="modal-title" id="modalTitle">Mở Khóa Link Tải</div>
-            <p class="modal-desc" id="modalDesc">Vui lòng ghé thăm Shopee của tụi mình trong 5 giây để lấy link tải Google Drive nhé!</p>
+            <p class="modal-desc" id="modalDesc">Bạn ơi, ghé thăm Shopee của tụi mình trong 5 giây để lấy link tải Google Drive nhé!</p>
             <div id="modalActionArea"></div>
         </div>
     </div>
 
     <script>
         // ==========================================================
-        // CẤU HÌNH LIÊN KẾT GOOGLE SHEETS CỦA BẠN
+        // CẤU HÌNH LIÊN KẾT GOOGLE SHEETS
         // ==========================================================
         const SPREADSHEET_ID = '1-1nlYGptmuQIOXCuYYMVA6nIp_-0uUG1B5vBcDwewJU';
         
         // Link Shopee mặc định của bạn
-        const linkShopeeCuaBan = "https://shopee.vn";
+        const linkShopeeCuaBan = "https://s.shopee.vn/70IXpBepnD";
 
-        // Bản đồ icon & danh mục hệ thống
+        // Bản đồ icon & danh mục hệ thống (Đã chuẩn hóa siêu ngắn gọn theo Drive của bạn)
         const categoriesData = {
-            "Vận hành": { icon: "📧" },
-            "Marketing": { icon: "📚" },
-            "Nhân sự": { icon: "👥" },
-            "Tiếng Trung": { icon: "🇨🇳" },
-            "Tiếng Anh": { icon: "📢" },
-            "Tiếng Hàn": { icon: "🇰🇷" },
             "AI": { icon: "🤖" },
-            "Du lịch": { icon: "✈️" },
-            "Kinh doanh": { icon: "💼" },
-            "Tiktok": { icon: "📷" },
-            "Mẹ và bé": { icon: "🍼" },
+            "TikTok": { icon: "📷" },
+            "Freelancer": { icon: "💼" },
+            "MMO": { icon: "💸" },
             "Thiết kế": { icon: "🎨" },
+            "Youtube": { icon: "🔴" },
+            "Facebook": { icon: "📘" },
+            "Ngoại ngữ": { icon: "🗺️" },
+            "Google": { icon: "🔍" },
+            "Marketing": { icon: "📚" },
+            "Kinh doanh": { icon: "📊" },
+            "Sinh viên": { icon: "🎓" },
+            "Văn phòng": { icon: "📝" },
             "Khác": { icon: "📁" }
         };
 
         // ==========================================================
-        // HỆ THỐNG ĐIỀU CHỈNH GIAO DIỆN SÁNG / TỐI (LIGHT/DARK MODE)
+        // HỆ THỐNG ĐIỀU CHỈNH CHẾ ĐỘ SÁNG / TỐI (MẶC ĐỊNH SÁNG)
         // ==========================================================
         function initTheme() {
-            // Lấy giao diện đã lưu từ bộ nhớ trình duyệt, mặc định là tối (dark)
-            const savedTheme = localStorage.getItem('theme') || 'dark';
+            // Đã đổi mặc định thành Sáng (light) nếu chưa có bộ nhớ cũ
+            const savedTheme = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
             updateToggleButton(savedTheme);
         }
 
         function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme); // Ghi nhớ lựa chọn
+            localStorage.setItem('theme', newTheme); 
             updateToggleButton(newTheme);
         }
 
         function updateToggleButton(theme) {
             const btn = document.getElementById('themeToggleBtn');
             if (theme === 'light') {
-                btn.innerText = '🌙'; // Hiện mặt trăng khi đang ở nền sáng
+                btn.innerText = '🌙'; // Đang ở nền sáng -> Hiện mặt trăng để bấm đổi sang tối
                 btn.title = "Chuyển sang Giao diện Tối";
             } else {
-                btn.innerText = '☀️'; // Hiện mặt trời khi đang ở nền tối
+                btn.innerText = '☀️'; // Đang ở nền tối -> Hiện mặt trời để bấm đổi sang sáng
                 btn.title = "Chuyển sang Giao diện Sáng";
             }
         }
 
-        // Chạy khởi tạo giao diện trước
+        // Chạy khởi tạo theme
         initTheme();
 
         // ==========================================================
-        // HỆ THỐNG KẾT NỐI VÀ XỬ LÝ DỮ LIỆU GOOGLE SHEETS
+        // HỆ THỐNG KẾT NỐI VÀ XỬ LÝ DỮ LIỆU
         // ==========================================================
         let documents = [];
         let selectedCategoryFilter = "all";
         let pendingDriveUrl = "";
+        let pendingShopeeUrl = "";
 
         const searchInput = document.getElementById('searchInput');
         const resultsList = document.getElementById('resultsList');
@@ -654,9 +665,10 @@
                         title: row.c[0] ? row.c[0].v : '',
                         category: row.c[1] ? row.c[1].v : 'Khác',
                         size: row.c[2] ? row.c[2].v : '',
-                        driveUrl: row.c[3] ? row.c[3].v : 'https://drive.google.com'
+                        driveUrl: row.c[3] ? row.c[3].v : 'https://drive.google.com',
+                        shopeeUrl: row.c[4] ? row.c[4].v : '' // Cột E (Cột thứ 5 trên Sheets)
                     };
-                }).filter(doc => doc.title !== ""); // Bỏ qua dòng trống
+                }).filter(doc => doc.title !== "");
 
                 // Ẩn màn hình chờ, hiện nội dung web chính
                 loadingArea.style.display = 'none';
@@ -683,12 +695,23 @@
             document.getElementById(tabId).classList.add('active');
         }
 
-        // Nhận diện Icon định dạng file
-        function getFileStyle(fileName) {
-            const lower = fileName.toLowerCase();
-            if (lower.endsWith('.xlsx') || lower.endsWith('.xls')) return { icon: '📊' };
-            if (lower.endsWith('.docx') || lower.endsWith('.doc')) return { icon: '📝' };
-            if (lower.endsWith('.pdf')) return { icon: '📕' };
+        // Nhận diện Icon sinh động theo Đuôi File hoặc theo Danh Mục chủ đề
+        function getFileStyle(doc) {
+            const fileName = doc.title.toLowerCase();
+            const category = doc.category;
+
+            // 1. Ưu tiên kiểm tra đuôi file trước để hiện đúng định dạng thực tế
+            if (fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) return { icon: '📊' };
+            if (fileName.endsWith('.docx') || fileName.endsWith('.doc')) return { icon: '📝' };
+            if (fileName.endsWith('.pdf')) return { icon: '📕' };
+            if (fileName.endsWith('.zip') || fileName.endsWith('.rar')) return { icon: '📦' };
+
+            // 2. Nếu không có đuôi file rõ ràng, tự động lấy icon theo Danh mục chủ đề
+            if (categoriesData[category]) {
+                return { icon: categoriesData[category].icon };
+            }
+
+            // 3. Mặc định nếu không khớp trường hợp nào
             return { icon: '📁' };
         }
 
@@ -735,9 +758,9 @@
             });
 
             if (selectedCategoryFilter !== "all" && !query) {
-                resultsCount.innerText = `Danh mục: ${selectedCategoryFilter} (${filtered.length} tài liệu)`;
+                resultsCount.innerText = `FILTER_CATEGORY: "${selectedCategoryFilter}" (${filtered.length} items)`;
             } else {
-                resultsCount.innerText = query ? `Có ${filtered.length} kết quả cho "${query}"` : `Tất cả tài liệu (${filtered.length})`;
+                resultsCount.innerText = query ? `SEARCH_FOUND: ${filtered.length} items` : `TOTAL_ITEMS: [${filtered.length}]`;
             }
 
             if (filtered.length === 0) {
@@ -746,7 +769,7 @@
             }
 
             filtered.forEach(doc => {
-                const style = getFileStyle(doc.title);
+                const style = getFileStyle(doc);
                 const sizeText = doc.size ? ` · ${doc.size}` : ""; // Ẩn size nếu bỏ trống trên Sheet
                 
                 const item = document.createElement('div');
@@ -757,7 +780,7 @@
                         <div class="doc-title">${doc.title}</div>
                         <div class="doc-meta">Drive${sizeText} <span class="doc-tag">${doc.category}</span></div>
                     </div>
-                    <button class="btn-download" onclick="triggerUnlock('${doc.driveUrl}')">Tải về</button>
+                    <button class="btn-download" onclick="triggerUnlock('${doc.driveUrl}', '${doc.shopeeUrl}')">Tải về</button>
                 `;
                 resultsList.appendChild(item);
             });
@@ -769,7 +792,7 @@
             const selected = shuffled.slice(0, 5);
 
             selected.forEach(doc => {
-                const style = getFileStyle(doc.title);
+                const style = getFileStyle(doc);
                 const sizeText = doc.size ? ` · ${doc.size}` : "";
 
                 const item = document.createElement('div');
@@ -780,19 +803,22 @@
                         <div class="doc-title">${doc.title}</div>
                         <div class="doc-meta">Drive${sizeText} <span class="doc-tag">${doc.category}</span></div>
                     </div>
-                    <button class="btn-download" onclick="triggerUnlock('${doc.driveUrl}')">Tải về</button>
+                    <button class="btn-download" onclick="triggerUnlock('${doc.driveUrl}', '${doc.shopeeUrl}')">Tải về</button>
                 `;
                 recommendList.appendChild(item);
             });
         }
 
-        // Hệ thống Mở khóa Link tải
-        window.triggerUnlock = function(driveUrl) {
+        // Hệ thống Mở khóa Link tải (Đã xử lý link Shopee ngẫu nhiên động từ Sheets)
+        window.triggerUnlock = function(driveUrl, shopeeUrl) {
             pendingDriveUrl = driveUrl;
+            // Nếu trên Sheets có link shopee riêng thì dùng, nếu không thì dùng link mặc định của bạn
+            pendingShopeeUrl = (shopeeUrl && shopeeUrl.trim() !== "") ? shopeeUrl : linkShopeeCuaBan;
+
             modalGiftIcon.innerText = "🎁";
             modalTitle.innerText = "Mở Khóa Link Tải";
             modalDesc.innerText = "Bạn ơi, ghé thăm Shopee của mình một chút trong 5 giây là link tải Google Drive sẽ tự động mở khóa nhé!";
-            modalActionArea.innerHTML = `<a href="${linkShopeeCuaBan}" target="_blank" class="btn-shopee" id="shopeeBtn">Đi tới Shopee</a>`;
+            modalActionArea.innerHTML = `<a href="${pendingShopeeUrl}" target="_blank" class="btn-shopee" id="shopeeBtn">Đi tới Shopee</a>`;
             modalOverlay.style.display = 'flex';
 
             document.getElementById('shopeeBtn').addEventListener('click', () => {
