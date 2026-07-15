@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trạm Tri Thức - Kho Tìm Tài Liệu Miễn Phí</title>
+    <!-- Nhúng font chữ Roboto từ Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -55,7 +56,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            padding: 20px 16px;
+            padding: 20px 16px 80px 16px; /* Cách bottom để không đè nút giỏ hàng */
         }
 
         .container {
@@ -126,7 +127,6 @@
             line-height: 1.6;
         }
 
-        /* Khung nhấn mạnh từ khóa trong mô tả */
         .highlight-box {
             display: inline-block;
             background: rgba(16, 185, 129, 0.06);
@@ -202,7 +202,7 @@
             box-shadow: 0 4px 14px var(--glow-color);
         }
 
-        /* THANH BỘ LỌC PHỤ (SUB-FILTER) - CUỘN NGANG HIỆN ĐẠI */
+        /* THANH BỘ LỌC PHỤ (SUB-FILTER) */
         .sub-filter-bar {
             display: flex;
             gap: 8px;
@@ -213,9 +213,7 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        .sub-filter-bar::-webkit-scrollbar {
-            display: none;
-        }
+        .sub-filter-bar::-webkit-scrollbar { display: none; }
 
         .filter-chip {
             white-space: nowrap;
@@ -227,15 +225,10 @@
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s ease;
             box-shadow: 0 2px 6px rgba(0,0,0,0.02);
         }
 
-        .filter-chip:hover {
-            border-color: var(--primary-green);
-            color: var(--primary-green);
-        }
-
+        .filter-chip:hover { border-color: var(--primary-green); color: var(--primary-green); }
         .filter-chip.active {
             background-color: rgba(16, 185, 129, 0.1);
             border-color: var(--primary-green);
@@ -243,25 +236,54 @@
             box-shadow: 0 0 10px var(--glow-color);
         }
 
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
+        .tab-content { display: none; animation: fadeIn 0.3s ease-out; }
+        .tab-content.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* GRID DANH MỤC */
-        .categories-grid {
+        /* 🗺️ STYLE CẤU TRÚC SƠ ĐỒ CÂY KỸ NĂNG (SKILL TREE) XỊN MỊN */
+        .skill-tree-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+        }
+
+        .skill-stage-group {
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 16px;
+            position: relative;
+        }
+
+        .skill-stage-header {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary-green);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.9;
+        }
+
+        .skill-stage-header::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: dashed var(--border-light);
+        }
+
+        .skill-tree-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 10px;
         }
 
         .category-card {
@@ -269,13 +291,13 @@
             background-image: var(--gradient-card);
             border: 1px solid var(--border-light);
             border-radius: 12px;
-            padding: 14px 16px;
+            padding: 12px 14px;
             text-align: left;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .category-card:hover {
@@ -288,14 +310,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             color: var(--icon-color, var(--primary-green));
         }
 
         .category-card .cat-icon svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             fill: none;
             stroke: currentColor;
             stroke-width: 2;
@@ -316,15 +338,11 @@
             color: var(--text-sub);
             margin-left: auto;
             font-weight: 500;
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
         /* DANH SÁCH TÀI LIỆU */
-        .results-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .results-list { display: flex; flex-direction: column; gap: 12px; }
 
         .result-item {
             background: var(--card-bg);
@@ -338,11 +356,7 @@
             transition: all 0.2s ease;
         }
 
-        .result-item:hover {
-            border-color: var(--primary-green);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-        }
+        .result-item:hover { border-color: var(--primary-green); }
 
         .doc-icon {
             width: 40px;
@@ -366,10 +380,7 @@
             stroke-linejoin: round;
         }
 
-        .doc-info {
-            flex-grow: 1;
-            min-width: 0;
-        }
+        .doc-info { flex-grow: 1; min-width: 0; }
 
         .doc-title {
             font-size: 12px;
@@ -400,21 +411,27 @@
             font-weight: 700;
         }
 
-        /* Nút "Vào học" cao cấp */
+        /* Nhóm nút hành động bên phải */
+        .doc-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
         .btn-download {
             background: var(--btn-download-bg);
             color: var(--primary-green);
             border: 1px solid var(--primary-green);
-            padding: 8px 12px;
+            padding: 7px 12px;
             border-radius: 8px;
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 700;
             cursor: pointer;
-            flex-shrink: 0;
-            transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
+            gap: 4px;
         }
 
         .btn-download svg {
@@ -427,13 +444,52 @@
             stroke-linejoin: round;
         }
 
-        .btn-download:hover {
-            background: var(--primary-green);
-            color: #ffffff;
-            box-shadow: 0 0 10px var(--glow-color);
+        /* Nút Lưu Lộ Trình học tập cá nhân */
+        .btn-save-cart {
+            background: transparent;
+            color: var(--text-sub);
+            border: 1px solid var(--border-light);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 10.5px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+        }
+        .btn-save-cart.saved {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--primary-green);
+            border-color: var(--primary-green);
         }
 
-        /* GIỚI THIỆU - TRẠM TRI THỨC & KHUNG YÊU CẦU */
+        /* 🎒 NÚT GIỎ HÀNG (BALO LỘ TRÌNH) CỐ ĐỊNH GÓC MÀN HÌNH */
+        .fixed-cart-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 30px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 24px var(--glow-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 999;
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3); }
+            50% { transform: scale(1.03); box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5); }
+            100% { transform: scale(1); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3); }
+        }
+
+        /* GIỚI THIỆU */
         .intro-card {
             background: var(--card-bg);
             border: 1px solid var(--border-light);
@@ -457,88 +513,39 @@
             font-weight: 600;
             padding: 8px 16px;
             border-radius: 8px;
-            transition: all 0.2s;
         }
 
         .btn-link:hover { border-color: var(--primary-green); color: var(--primary-green); }
 
-        /* Khung Thiết Kế "Hộp Yêu Cầu Tài Liệu" */
+        /* Hộp Yêu Cầu Tài Liệu */
         .request-box-card {
             background: var(--card-bg);
             border: 1px solid var(--border-light);
             border-radius: 16px;
             padding: 20px;
             text-align: left;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
         }
 
-        .request-box-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .request-box-title { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .request-box-desc { font-size: 12px; color: var(--text-sub); margin-bottom: 14px; line-height: 1.4; }
+        .request-textarea { width: 100%; height: 80px; background-color: var(--input-bg); border: 1px solid var(--border-light); border-radius: 10px; padding: 12px; font-size: 13px; color: var(--text-main); outline: none; resize: none; margin-bottom: 10px; }
+        .request-textarea:focus { border-color: var(--primary-green); box-shadow: 0 0 10px var(--glow-color); }
+        .btn-submit-request { width: 100%; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 11px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; }
 
-        .request-box-desc {
-            font-size: 12px;
-            color: var(--text-sub);
-            margin-bottom: 14px;
-            line-height: 1.4;
-        }
-
-        .request-textarea {
-            width: 100%;
-            height: 80px;
-            background-color: var(--input-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            padding: 12px;
-            font-size: 13px;
-            color: var(--text-main);
-            outline: none;
-            resize: none;
-            margin-bottom: 10px;
-        }
-
-        .request-textarea:focus {
-            border-color: var(--primary-green);
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-
-        .btn-submit-request {
-            width: 100%;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            border: none;
-            padding: 11px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 10px var(--glow-color);
-        }
-
-        .btn-submit-request:active {
-            transform: scale(0.99);
-        }
-
-        .recommend-section {
-            margin-top: 30px;
+        /* 💌 FOOTER LỜI NHẮN TRUYỀN ĐỘNG LỰC CHỮA LÀNH */
+        .motivational-footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px 10px;
             border-top: 1px dashed var(--border-light);
-            padding-top: 20px;
         }
 
-        .recommend-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .motivational-text {
+            font-size: 12px;
+            font-style: italic;
+            color: var(--text-sub);
+            line-height: 1.6;
+            opacity: 0.85;
         }
 
         /* Popup Mở Khóa */
@@ -568,140 +575,78 @@
             animation: bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes bounceIn {
-            from { transform: scale(0.85); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-gift-icon { font-size: 36px; margin-bottom: 12px; }
-        .modal-title { 
-            font-size: 14px; 
-            font-weight: 700; 
-            margin-bottom: 12px; 
-            color: var(--text-main); 
-            line-height: 1.5;
-            padding: 0 10px;
-            word-break: break-word;
-        }
-
-        .modal-desc { 
-            font-size: 12.5px; 
-            color: var(--text-sub); 
-            line-height: 1.6; 
-            margin-bottom: 20px; 
-            text-align: center;
-        }
+        .modal-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text-main); line-height: 1.5; padding: 0 10px; word-break: break-word; }
+        .modal-desc { font-size: 12.5px; color: var(--text-sub); line-height: 1.6; margin-bottom: 20px; text-align: center; }
         
-        .modal-meta-box {
-            background: var(--primary-bg);
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 18px;
+        .modal-meta-box { background: var(--primary-bg); border-radius: 10px; padding: 12px; margin-bottom: 18px; text-align: left; border: 1px solid var(--border-light); }
+        .modal-meta-item { font-size: 12px; line-height: 1.5; color: var(--text-sub); margin-bottom: 6px; }
+        .modal-meta-label { font-weight: 700; color: var(--text-main); }
+        .modal-note { font-size: 11px; color: #ef4444; font-weight: 500; margin-top: 14px; line-height: 1.5; background: rgba(239, 68, 68, 0.05); padding: 8px 12px; border-radius: 8px; border: 1px dashed rgba(239, 68, 68, 0.15); }
+        
+        .btn-shopee { display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #ff5722, #f4511e); color: white; text-decoration: none; padding: 13px; border-radius: 12px; font-weight: 700; font-size: 12.5px; margin-bottom: 10px; }
+        .btn-drive { display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #10b981, #059669); color: white; text-decoration: none; padding: 13px; border-radius: 12px; font-weight: 700; font-size: 12.5px; }
+
+        /* Bảng giỏ hàng */
+        .cart-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
             text-align: left;
-            border: 1px solid var(--border-light);
         }
-
-        .modal-meta-item {
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 4px;
+            border-bottom: 1px solid var(--border-light);
             font-size: 12px;
-            line-height: 1.5;
-            color: var(--text-sub);
-            margin-bottom: 6px;
         }
-        .modal-meta-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .modal-meta-label {
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .modal-note {
-            font-size: 11px;
-            color: #ef4444;
-            font-weight: 500;
-            margin-top: 14px;
-            line-height: 1.5;
-            background: rgba(239, 68, 68, 0.05);
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px dashed rgba(239, 68, 68, 0.15);
-        }
-
-        .btn-shopee {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #ff5722, #f4511e);
-            color: white;
-            text-decoration: none;
-            padding: 13px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 12.5px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 12px rgba(244, 81, 30, 0.2);
-            transition: transform 0.2s;
-        }
-
-        .btn-shopee:active {
-            transform: scale(0.98);
-        }
-
-        .btn-drive {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            text-decoration: none;
-            padding: 13px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 12.5px;
-            box-shadow: 0 4px 12px var(--glow-color);
-        }
-
-        .no-results {
-            text-align: center;
-            color: var(--text-sub);
-            padding: 20px;
-            font-size: 13px;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 30px;
-            color: var(--primary-green);
-            font-size: 14px;
+        .cart-item-title {
             font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 240px;
         }
+        .btn-remove-cart {
+            color: #ef4444;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .no-results { text-align: center; color: var(--text-sub); padding: 20px; font-size: 13px; }
+        .loading { text-align: center; padding: 30px; color: var(--primary-green); font-size: 14px; font-weight: 600; }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- Nút theme -->
         <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Đổi giao diện Sáng/Tối">🌙</button>
 
+        <!-- Header -->
         <div class="header">
             <span class="badge-premium">TRẠM TRI THỨC</span>
             <h1>Tìm gì cũng có – Kho tài liệu dành riêng cho bạn</h1>
             <p class="desc"><span class="highlight-box">Tài liệu</span> chất, giá <span class="highlight-box">0đ</span> – Trợ thủ đắc lực cho học tập và công việc</p>
         </div>
 
+        <!-- Ô Tìm Kiếm -->
         <div class="search-box-wrapper">
             <input type="text" id="searchInput" class="search-input" placeholder="Nhập từ khóa rộng để tìm tài liệu...">
             <span class="search-icon">🔍</span>
         </div>
 
+        <!-- Thanh điều hướng 3 TABS CHÍNH -->
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="switchTab('tab-danhmuc')">DANH MỤC</button>
             <button class="tab-btn" onclick="switchTab('tab-khotailieu')">TÀI LIỆU FREE</button>
             <button class="tab-btn" onclick="switchTab('tab-gioithieu')">GIỚI THIỆU</button>
         </div>
 
+        <!-- THANH BỘ LỌC PHỤ (SUB-FILTER) HIỆN ĐẠI CUỘN NGANG -->
         <div class="sub-filter-bar" id="subFilterBar">
             <button class="filter-chip active" onclick="setSubFilter('all')">✨ Tất cả</button>
             <button class="filter-chip" onclick="setSubFilter('latest')">🕒 Mới cập nhật</button>
@@ -711,17 +656,21 @@
             <button class="filter-chip" onclick="setSubFilter('Template')">🎨 Template</button>
         </div>
 
+        <!-- Khung Loading -->
         <div id="loadingArea" class="loading">⏳ Đang cập nhật, đợi chút nha...</div>
 
         <div id="mainContent" style="display: none;">
+            <!-- TAB 1: DANH MỤC (ĐÃ ĐƯỢC CHUYỂN THÀNH SƠ ĐỒ CÂY KỸ NĂNG SKILL TREE ĐỘC LẠ) -->
             <div id="tab-danhmuc" class="tab-content active">
-                <div class="categories-grid" id="categoriesGrid"></div>
+                <div class="skill-tree-container" id="skillTreeContainer"></div>
             </div>
 
+            <!-- TAB 2: KHO TÀI LIỆU -->
             <div id="tab-khotailieu" class="tab-content">
                 <div class="results-list" id="resultsList"></div>
             </div>
 
+            <!-- TAB 3: GIỚI THIỆU -->
             <div id="tab-gioithieu" class="tab-content">
                 <div class="intro-card">
                     <div class="intro-avatar">💡</div>
@@ -736,6 +685,7 @@
                     </div>
                 </div>
 
+                <!-- HỘP GÓP Ý & YÊU CẦU TÀI LIỆU -->
                 <div class="request-box-card">
                     <div class="request-box-title">📥 Hộp Yêu Cầu Tài Liệu</div>
                     <p class="request-box-desc">Bạn đang cần tìm khóa học hay bộ template nào mà Trạm chưa có? Hãy nhắn cho tụi mình biết nhé, Trạm hỗ trợ tìm kiếm nhiệt tình luôn nha!</p>
@@ -744,13 +694,25 @@
                 </div>
             </div>
 
+            <!-- PHẦN GỢI Ý CỐ ĐỊNH Ở DƯỚI -->
             <div class="recommend-section">
                 <div class="recommend-title">✨ Có thể bạn cần (gợi ý)</div>
                 <div class="results-list" id="recommendList"></div>
             </div>
+
+            <!-- 💌 FOOTER LỜI NHẮN TRUYỀN ĐỘNG LỰC DƯỚI CHÂN TRANG -->
+            <div class="motivational-footer">
+                <p class="motivational-text" id="motivationalText">Hôm nay bạn đã cố gắng nhiều rồi, học nốt một chút rồi nghỉ ngơi sớm nha! 🥰</p>
+            </div>
         </div>
     </div>
 
+    <!-- 🎒 NÚT BALO LỘ TRÌNH HỌC (GIỎ HÀNG CÁ NHÂN) CỐ ĐỊNH -->
+    <button class="fixed-cart-btn" id="fixedCartBtn" onclick="openCartModal()">
+        🎒 Lộ trình của tôi <span id="cartCount">[0]</span>
+    </button>
+
+    <!-- Popup Mở Khóa Khóa Học Thông Thường -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-gift-icon" id="modalGiftIcon">🎁</div>
@@ -767,15 +729,35 @@
         </div>
     </div>
 
+    <!-- Popup Quản Lý Lộ Trình (Giỏ Hàng) -->
+    <div class="modal-overlay" id="cartModalOverlay">
+        <div class="modal">
+            <div class="modal-gift-icon">🎒</div>
+            <div class="modal-title">Lộ Trình Học Tập Cá Nhân Của Bạn</div>
+            <p class="modal-desc" style="font-size:12px; margin-bottom:10px;">Dưới đây là các tài liệu bạn đã gom lưu lại để dành học:</p>
+            
+            <div class="cart-list" id="cartListItems"></div>
+
+            <p class="modal-desc" id="cartModalDesc">Ghé thăm Shopee trong 5s sau đó quay lại để nhận quyền truy cập toàn bộ lộ trình này nhé!</p>
+            <div id="cartModalActionArea"></div>
+        </div>
+    </div>
+
     <script>
         const SPREADSHEET_ID = '1-1nlYGptmuQIOXCuYYMVA6nIp_-0uUG1B5vBcDwewJU';
         const linkShopeeCuaBan = "https://s.shopee.vn/70IXpBepnD";
 
-        // ==========================================================
-        // CẤU HÌNH LIÊN KẾT GOOGLE FORM (ĐÃ ĐIỀN SẴN ID & ENTRY)
-        // ==========================================================
         const GOOGLE_FORM_ID = '1FAIpQLSex-1yPhGLA3rhiOrGPJaEYdchPWZiHmiOeyDasgcDmfrEzsg';
-        const GOOGLE_FORM_ENTRY_ID = 'entry.1889921256'; // Đã tích hợp mã entry khớp biểu mẫu của bạn
+        const GOOGLE_FORM_ENTRY_ID = 'entry.1889921256';
+
+        // 💌 Danh sách các câu thoại truyền cảm hứng, chữa lành dưới chân trang
+        const motivationalSayings = [
+            "Hôm nay bạn đã nỗ lực nhiều rồi, học nốt một chút rồi nghỉ ngơi sớm nha! 🥰",
+            "Trạm Tri Thức tin rằng sự kiên trì của bạn ngày hôm nay sẽ hái quả ngọt ngày mai. ✨",
+            "Mỗi ngày tiến bộ 1% thôi là sau một năm bạn đã phiên bản đỉnh hơn rất nhiều rồi! 🚀",
+            "Đừng áp lực quá nha, hành trình vạn dặm luôn bắt đầu từ những bước chân đầu tiên. 🌿",
+            "Chúc bạn tìm được thật nhiều niềm vui và kiến thức bổ ích tại Trạm hôm nay nhé! 🦁"
+        ];
 
         const svgIcons = {
             "Thiết kế": `<svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,
@@ -802,6 +784,26 @@
             "cap": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>`
         };
 
+        // 🗺️ PHÂN NHÓM DANH MỤC THEO ĐÚNG SƠ ĐỒ CÂY PHÁT TRIỂN (SKILL TREE MAP)
+        const skillTreeStructure = [
+            {
+                stageTitle: "🌱 Giai đoạn 1: Khởi động nền tảng",
+                categories: ["Sinh viên", "Ngoại ngữ", "Kỹ năng mềm"]
+            },
+            {
+                stageTitle: "📊 Giai đoạn 2: Kỹ năng văn phòng",
+                categories: ["Văn phòng", "Thiết kế", "Google"]
+            },
+            {
+                stageTitle: "🚀 Giai đoạn 3: Thực chiến chuyên sâu",
+                categories: ["Marketing", "TikTok", "Youtube", "Facebook", "AI - Automation"]
+            },
+            {
+                stageTitle: "💸 Giai đoạn 4: Về đích & Kiếm tiền",
+                categories: ["Kinh doanh", "Freelancer", "Kiếm tiền online", "Đầu tư", "Khác"]
+            }
+        ];
+
         const categoriesData = {
             "Thiết kế": { icon: svgIcons["Thiết kế"], color: "#06b6d4" },
             "Lập trình": { icon: svgIcons["Lập trình"], color: "#3b82f6" },
@@ -822,28 +824,8 @@
             "Khác": { icon: svgIcons["Khác"], color: "#94a3b8" }
         };
 
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            updateToggleButton(savedTheme);
-        }
-
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme); 
-            updateToggleButton(newTheme);
-        }
-
-        function updateToggleButton(theme) {
-            const btn = document.getElementById('themeToggleBtn');
-            btn.innerText = theme === 'light' ? '🌙' : '☀️';
-        }
-
-        initTheme();
-
         let documents = [];
+        let savedRouteCart = []; // Lưu danh sách giỏ hàng lộ trình cá nhân
         let selectedCategoryFilter = "all";
         let selectedSubFilter = "all";
         let pendingDriveUrl = "";
@@ -852,7 +834,7 @@
         const searchInput = document.getElementById('searchInput');
         const resultsList = document.getElementById('resultsList');
         const recommendList = document.getElementById('recommendList');
-        const categoriesGrid = document.getElementById('categoriesGrid');
+        const skillTreeContainer = document.getElementById('skillTreeContainer');
         const loadingArea = document.getElementById('loadingArea');
         const mainContent = document.getElementById('mainContent');
         
@@ -864,6 +846,12 @@
         const modalMetaAuthor = document.getElementById('modalMetaAuthor');
         const modalMetaDesc = document.getElementById('modalMetaDesc');
 
+        const cartModalOverlay = document.getElementById('cartModalOverlay');
+        const cartListItems = document.getElementById('cartListItems');
+        const cartCount = document.getElementById('cartCount');
+
+        // Ngẫu nhiên lời nhắn động dưới chân trang khi load
+        document.getElementById('motivationalText').innerText = motivationalSayings[Math.floor(Math.random() * motivationalSayings.length)];
         document.getElementById('shopeeIntroLink').href = linkShopeeCuaBan;
 
         async function fetchGoogleSheetsData() {
@@ -892,7 +880,8 @@
                 loadingArea.style.display = 'none';
                 mainContent.style.display = 'block';
 
-                renderCategories();
+                loadCartFromStorage();
+                renderSkillTree();
                 render();
                 renderRandomRecommendations();
             } catch (error) {
@@ -914,60 +903,59 @@
         window.setSubFilter = function(filterType) {
             selectedSubFilter = filterType;
             document.querySelectorAll('.filter-chip').forEach(btn => btn.classList.remove('active'));
-            
             const targetBtn = Array.from(document.querySelectorAll('.filter-chip')).find(btn => btn.getAttribute('onclick').includes(`'${filterType}'`));
             if (targetBtn) targetBtn.classList.add('active');
-            
             switchTab('tab-khotailieu');
             render();
         }
 
-        function getFileStyle(doc) {
-            const fileName = doc.title.toLowerCase();
-            const category = doc.category;
-
-            if (fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) return { icon: svgIcons["excel"], color: "#10b981" };
-            if (fileName.endsWith('.docx') || fileName.endsWith('.doc')) return { icon: svgIcons["word"], color: "#3b82f6" };
-            if (fileName.endsWith('.pdf')) return { icon: svgIcons["pdf"], color: "#ef4444" };
-            if (fileName.endsWith('.zip') || fileName.endsWith('.rar')) return { icon: svgIcons["zip"], color: "#f59e0b" };
-
-            if (categoriesData[category]) {
-                return { icon: categoriesData[category].icon, color: categoriesData[category].color };
-            }
-            return { icon: svgIcons["Khác"], color: "#94a3b8" };
-        }
-
-        function renderCategories() {
-            categoriesGrid.innerHTML = "";
+        // 🗺️ RENDER SƠ ĐỒ CÂY KỸ NĂNG (SKILL TREE) ĐỘC ĐÁO
+        function renderSkillTree() {
+            skillTreeContainer.innerHTML = "";
             const counts = {};
-            documents.forEach(doc => {
-                counts[doc.category] = (counts[doc.category] || 0) + 1;
-            });
+            documents.forEach(doc => { counts[doc.category] = (counts[doc.category] || 0) + 1; });
 
-            Object.keys(categoriesData).forEach(cat => {
-                const count = counts[cat] || 0;
-                const card = document.createElement('div');
-                card.className = 'category-card';
-                
-                const brandColor = categoriesData[cat].color;
-                card.style.setProperty('--hover-color', brandColor);
-                card.style.setProperty('--shadow-color', `${brandColor}33`);
-                card.style.setProperty('--icon-color', brandColor);
+            skillTreeStructure.forEach(stage => {
+                const stageGroup = document.createElement('div');
+                stageGroup.className = 'skill-stage-group';
 
-                card.onclick = () => {
-                    selectedCategoryFilter = cat;
-                    document.querySelectorAll('.filter-chip').forEach(btn => btn.classList.remove('active'));
-                    document.querySelector('.filter-chip[onclick*="\'all\'"]').classList.add('active');
-                    selectedSubFilter = "all";
-                    switchTab('tab-khotailieu');
-                    render();
-                };
-                card.innerHTML = `
-                    <div class="cat-icon">${categoriesData[cat].icon}</div>
-                    <div class="cat-name">${cat}</div>
-                    <div class="cat-count">[${count}]</div>
-                `;
-                categoriesGrid.appendChild(card);
+                const header = document.createElement('div');
+                header.className = 'skill-stage-header';
+                header.innerText = stage.stageTitle;
+                stageGroup.appendChild(header);
+
+                const grid = document.createElement('div');
+                grid.className = 'skill-tree-grid';
+
+                stage.categories.forEach(cat => {
+                    if (!categoriesData[cat]) return;
+                    const count = counts[cat] || 0;
+                    const card = document.createElement('div');
+                    card.className = 'category-card';
+                    
+                    const brandColor = categoriesData[cat].color;
+                    card.style.setProperty('--hover-color', brandColor);
+                    card.style.setProperty('--shadow-color', `${brandColor}33`);
+                    card.style.setProperty('--icon-color', brandColor);
+
+                    card.onclick = () => {
+                        selectedCategoryFilter = cat;
+                        selectedSubFilter = "all";
+                        document.querySelectorAll('.filter-chip').forEach(btn => btn.classList.remove('active'));
+                        document.querySelector('.filter-chip[onclick*="\'all\'"]').classList.add('active');
+                        switchTab('tab-khotailieu');
+                        render();
+                    };
+                    card.innerHTML = `
+                        <div class="cat-icon">${categoriesData[cat].icon}</div>
+                        <div class="cat-name">${cat}</div>
+                        <div class="cat-count">[${count}]</div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                stageGroup.appendChild(grid);
+                skillTreeContainer.appendChild(stageGroup);
             });
         }
 
@@ -975,11 +963,12 @@
             const style = getFileStyle(doc);
             const sizeText = doc.size ? ` · ${doc.size}` : "";
             const authorDisplay = doc.author ? doc.author : "Trạm Tri Thức";
+            const isSaved = savedRouteCart.some(item => item.title === doc.title);
             
             const item = document.createElement('div');
             item.className = 'result-item';
             item.onclick = (e) => {
-                if (e.target.closest('.btn-download')) return;
+                if (e.target.closest('.doc-actions')) return;
                 triggerUnlock(doc);
             };
 
@@ -992,12 +981,99 @@
                         <span class="doc-tag" style="color: ${style.color}; background-color: ${style.color}14">${doc.category}</span>
                     </div>
                 </div>
-                <button class="btn-download" style="color: ${style.color}; border-color: ${style.color}" onmouseover="this.style.backgroundColor='${style.color}'; this.style.color='#ffffff'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='${style.color}'" onclick='triggerUnlock(JSON.parse(this.dataset.doc))'>
-                    ${svgIcons["cap"]} Vào học
-                </button>
+                <div class="doc-actions">
+                    <button class="btn-download" style="color: ${style.color}; border-color: ${style.color}" onmouseover="this.style.backgroundColor='${style.color}'; this.style.color='#ffffff'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='${style.color}'" onclick='triggerUnlock(JSON.parse(this.parentNode.parentNode.dataset.doc))'>
+                        ${svgIcons["cap"]} Vào học
+                    </button>
+                    <button class="btn-save-cart ${isSaved ? 'saved' : ''}" onclick='toggleSaveCart(JSON.parse(this.parentNode.parentNode.dataset.doc), this)'>
+                        ${isSaved ? '✓ Đã lưu' : '+ Lưu lộ trình'}
+                    </button>
+                </div>
             `;
-            item.querySelector('.btn-download').dataset.doc = JSON.stringify(doc);
+            item.dataset.doc = JSON.stringify(doc);
             return item;
+        }
+
+        // LOGIC LƯU TRỮ BALO LỘ TRÌNH (GIỎ HÀNG)
+        window.toggleSaveCart = function(doc, btn) {
+            const index = savedRouteCart.findIndex(item => item.title === doc.title);
+            if (index > -1) {
+                savedRouteCart.splice(index, 1);
+                btn.classList.remove('saved');
+                btn.innerText = "+ Lưu lộ trình";
+            } else {
+                savedRouteCart.push(doc);
+                btn.classList.add('saved');
+                btn.innerText = "✓ Đã lưu";
+            }
+            localStorage.setItem('trth_cart', JSON.stringify(savedRouteCart));
+            updateCartButtonCount();
+        }
+
+        function loadCartFromStorage() {
+            const saved = localStorage.getItem('trth_cart');
+            if (saved) { savedRouteCart = JSON.parse(saved); }
+            updateCartButtonCount();
+        }
+
+        function updateCartButtonCount() {
+            cartCount.innerText = `[${savedRouteCart.length}]`;
+        }
+
+        // MỞ POPUP BALO LỘ TRÌNH CÁ NHÂN (MỤC 2)
+        window.openCartModal = function() {
+            cartListItems.innerHTML = "";
+            if (savedRouteCart.length === 0) {
+                cartListItems.innerHTML = `<div style="font-size:12px; color:var(--text-sub); text-align:center; padding:15px;">Balo trống trơn nè, bạn hãy ấn nút "+ Lưu lộ trình" ở các tài liệu bên ngoài nhé! 🥰</div>`;
+                document.getElementById('cartModalActionArea').innerHTML = "";
+                cartModalOverlay.style.display = 'flex';
+                return;
+            }
+
+            savedRouteCart.forEach((item, idx) => {
+                const row = document.createElement('div');
+                row.className = 'cart-item-row';
+                row.innerHTML = `
+                    <div class="cart-item-title">${idx + 1}. ${item.title}</div>
+                    <button class="btn-remove-cart" onclick="removeCartItem(${idx})">Xóa</button>
+                `;
+                cartListItems.appendChild(row);
+            });
+
+            // Gán link Shopee ngẫu nhiên từ phần tử đầu tiên hoặc mặc định
+            const shopeeLink = savedRouteCart[0].shopeeUrl ? savedRouteCart[0].shopeeUrl : linkShopeeCuaBan;
+            document.getElementById('cartModalActionArea').innerHTML = `
+                <a href="${shopeeLink}" target="_blank" class="btn-shopee" id="submitCartBtn">
+                    🥰 Ghé Shopee 5s kích hoạt học toàn bộ lộ trình
+                </a>
+            `;
+            cartModalOverlay.style.display = 'flex';
+
+            document.getElementById('submitCartBtn').onclick = () => {
+                setTimeout(() => {
+                    document.getElementById('cartModalDesc').innerText = "🎉 Kích hoạt lộ trình thành công! Tụi mình đã mở sẵn danh sách liên kết học ở dưới:";
+                    document.getElementById('cartModalActionArea').innerHTML = "";
+                    cartListItems.innerHTML = "";
+                    
+                    savedRouteCart.forEach((item, idx) => {
+                        const row = document.createElement('div');
+                        row.className = 'cart-item-row';
+                        row.innerHTML = `
+                            <div class="cart-item-title" style="color:var(--primary-green); font-weight:700;">${idx + 1}. ${item.title}</div>
+                            <a href="${item.driveUrl}" target="_blank" class="btn-download" style="padding:4px 8px; font-size:10px;">Vào học</a>
+                        `;
+                        cartListItems.appendChild(row);
+                    });
+                }, 1000);
+            };
+        }
+
+        window.removeCartItem = function(index) {
+            savedRouteCart.splice(index, 1);
+            localStorage.setItem('trth_cart', JSON.stringify(savedRouteCart));
+            updateCartButtonCount();
+            openCartModal(); // Refresh bảng
+            render(); // Đồng bộ đổi chữ nút ngoài trang chủ
         }
 
         function render() {
@@ -1010,32 +1086,23 @@
                 return matchSearch && matchCategory;
             });
 
-            if (selectedSubFilter === "latest") {
-                filtered = [...filtered].sort((a, b) => b.id - a.id);
-            } else if (selectedSubFilter === "popular") {
-                filtered = [...filtered].sort(() => 0.5 - Math.random());
-            } else if (selectedSubFilter === "Khóa học" || selectedSubFilter === "Tài liệu" || selectedSubFilter === "Template") {
+            if (selectedSubFilter === "latest") { filtered = [...filtered].sort((a, b) => b.id - a.id); }
+            else if (selectedSubFilter === "popular") { filtered = [...filtered].sort(() => 0.5 - Math.random()); }
+            else if (selectedSubFilter === "Khóa học" || selectedSubFilter === "Tài liệu" || selectedSubFilter === "Template") {
                 filtered = filtered.filter(doc => doc.type === selectedSubFilter);
             }
 
             if (filtered.length === 0) {
-                resultsList.innerHTML = `<div class="no-results">Không tìm thấy tài liệu phù hợp ở mục này... 😢</div>`;
+                resultsList.innerHTML = `<div class="no-results">Không tìm thấy tài liệu phù hợp... 😢</div>`;
                 return;
             }
-
-            filtered.forEach(doc => {
-                resultsList.appendChild(createItemHTML(doc));
-            });
+            filtered.forEach(doc => { resultsList.appendChild(createItemHTML(doc)); });
         }
 
         function renderRandomRecommendations() {
             recommendList.innerHTML = "";
             const shuffled = [...documents].sort(() => 0.5 - Math.random());
-            const selected = shuffled.slice(0, 5);
-
-            selected.forEach(doc => {
-                recommendList.appendChild(createItemHTML(doc));
-            });
+            shuffled.slice(0, 5).forEach(doc => { recommendList.appendChild(createItemHTML(doc)); });
         }
 
         window.triggerUnlock = function(doc) {
@@ -1071,48 +1138,23 @@
                             📚 Vào học ngay thôi nào
                         </a>
                     `;
-
-                    document.getElementById('driveBtn').addEventListener('click', () => {
-                        setTimeout(() => {
-                            modalOverlay.style.display = 'none';
-                        }, 1000);
-                    });
+                    document.getElementById('driveBtn').addEventListener('click', () => { setTimeout(() => { modalOverlay.style.display = 'none'; }, 1000); });
                 }, 1000);
             });
         }
 
-        // HÀM GỬI YÊU CẦU TÀI LIỆU VỀ GOOGLE FORMS KHÔNG CHUYỂN TRANG
         window.sendUserRequest = function() {
             const requestText = document.getElementById('requestInput').value.trim();
-            
-            if (requestText === "") {
-                alert("Bạn ơi, vui lòng nhập nội dung tên tài liệu trước khi bấm gửi nha! 🥰");
-                return;
-            }
-
-            // Tạo link API submit dữ liệu ngầm lên Google Form
+            if (requestText === "") { alert("Bạn ơi, vui lòng nhập nội dung tên tài liệu trước khi bấm gửi nha! 🥰"); return; }
             const submitUrl = `https://docs.google.com/forms/d/e/${GOOGLE_FORM_ID}/formResponse?${GOOGLE_FORM_ENTRY_ID}=${encodeURIComponent(requestText)}&submit=Submit`;
-
-            // Bắn dữ liệu ngầm bằng thẻ Image ẩn (Vừa nhanh, vừa không lo bị lỗi chặn bảo mật CORS)
-            const img = new Image();
-            img.src = submitUrl;
-
-            // Hiển thị thông báo thành công ngọt ngào cho khách
+            const img = new Image(); img.src = submitUrl;
             alert("🎉 Gửi yêu cầu thành công rồi nè! Trạm đã nhận được tin nhắn và sẽ tìm kiếm tài liệu này để cập nhật sớm nhất cho bạn nha. Cảm ơn bạn! 🥰");
-            
-            // Xóa sạch ô nhập liệu để sẵn sàng cho lần sau
             document.getElementById('requestInput').value = "";
         }
 
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) modalOverlay.style.display = 'none';
-        });
-
-        searchInput.addEventListener('input', () => {
-            selectedCategoryFilter = "all";
-            switchTab('tab-khotailieu');
-            render();
-        });
+        modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) modalOverlay.style.display = 'none'; });
+        cartModalOverlay.addEventListener('click', (e) => { if (e.target === cartModalOverlay) cartModalOverlay.style.display = 'none'; });
+        searchInput.addEventListener('input', () => { selectedCategoryFilter = "all"; switchTab('tab-khotailieu'); render(); });
 
         fetchGoogleSheetsData();
     </script>
