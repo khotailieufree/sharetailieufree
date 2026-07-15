@@ -641,9 +641,9 @@
                 <div class="modal-meta-item" id="modalMetaDesc"><span class="modal-meta-label">Mô tả:</span> ...</div>
             </div>
 
-            <p class="modal-desc" id="modalDesc">Bạn ơi, ghé thăm Shopee trong 5s sau đó quay lại để lấy link học Google Drive nhé!</p>
+            <p class="modal-desc" id="modalDesc">Bạn ơi, ghé thăm Shopee trong 5s rồi quay lại liền để lấy link tài liệu nhé!</p>
             <div id="modalActionArea"></div>
-            <div class="modal-note">Lưu ý: Mở tài liệu bằng trình duyệt để trải nghiệm tốt nhất nha.</div>
+            <div class="modal-note">Lưu ý: Mở website bằng trình duyệt để trải nghiệm tốt nhất nha.</div>
         </div>
     </div>
 
@@ -917,7 +917,7 @@
             modalDesc.innerText = "Bạn ơi, ghé thăm Shopee trong 5s sau đó quay lại để lấy link học Google Drive nhé!";
             modalActionArea.innerHTML = `
                 <a href="${pendingShopeeUrl}" target="_blank" class="btn-shopee" id="shopeeBtn">
-                    🥰 Ok, tui sẽ ghé Shopee xíu xong quay lại liền nè
+                    🥰 Ok, tui sẽ ghé Shopee xíu xong quay lại liền
                 </a>
             `;
             modalOverlay.style.display = 'flex';
@@ -928,7 +928,7 @@
                     modalTitle.innerText = "Đã Mở Khóa Thành Công!";
                     modalMetaAuthor.innerHTML = `<span class="modal-meta-label">Chúc bạn học tốt:</span> ${doc.title}`;
                     modalMetaDesc.innerHTML = `<span class="modal-meta-label">Người chia sẻ:</span> ${authorDisplay}`;
-                    modalDesc.innerText = "Cảm ơn sự ủng hộ cực kỳ đáng quý từ bạn! Hãy truy cập lớp học ở nút dưới đây nha:";
+                    modalDesc.innerText = "Cảm ơn sự ủng hộ cực kỳ đáng quý từ bạn! Hãy truy cập tài liệu ở nút dưới đây nha:";
                     modalActionArea.innerHTML = `
                         <a href="${pendingDriveUrl}" target="_blank" class="btn-drive" id="driveBtn">
                             📚 Vào học ngay thôi nào
