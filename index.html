@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Hub - Kho Tìm Tài Liệu Miễn Phí</title>
+    <!-- Nhúng font chữ Roboto từ Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -18,7 +19,7 @@
             --tab-bg: #f1f5f9;
             --tab-active-bg: linear-gradient(135deg, #10b981, #059669);
             --btn-download-bg: #f1f5f9;
-            --gradient-card: linear-gradient(135deg, rgba(16, 185, 129, 0.03), rgba(5, 150, 105, 0.03));
+            --gradient-card: linear-gradient(135deg, rgba(16, 185, 129, 0.02), rgba(5, 150, 105, 0.02));
         }
 
         [data-theme="dark"] {
@@ -212,13 +213,13 @@
             background-image: var(--gradient-card);
             border: 1px solid var(--border-light);
             border-radius: 12px;
-            padding: 15px 16px;
+            padding: 14px 16px;
             text-align: left;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .category-card:hover {
@@ -228,25 +229,39 @@
         }
 
         .category-card .cat-icon {
-            font-size: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 24px;
+            height: 24px;
+            color: var(--primary-green);
+        }
+
+        /* Định dạng icon SVG đồng bộ */
+        .category-card .cat-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .category-card .cat-name {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
             color: var(--text-main);
         }
 
         .category-card .cat-count {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--text-sub);
             margin-left: auto;
-            font-weight: 700;
+            font-weight: 500;
+            opacity: 0.7;
         }
 
         /* DANH SÁCH TÀI LIỆU */
@@ -278,9 +293,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             flex-shrink: 0;
             background-color: var(--tab-bg);
+            color: var(--primary-green);
+        }
+
+        .doc-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .doc-info {
@@ -456,36 +482,44 @@
 <body>
 
     <div class="container">
+        <!-- Nút theme -->
         <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Đổi giao diện Sáng/Tối">🌙</button>
 
+        <!-- Header -->
         <div class="header">
             <span class="badge-premium">PREMIUM_HUB.EXE</span>
             <h1>Tìm tài liệu bạn cần</h1>
             <p class="desc">Kho tài liệu chọn lọc và hoàn toàn miễn phí phục vụ cho công việc và học tập.</p>
         </div>
 
+        <!-- Ô Tìm Kiếm -->
         <div class="search-box-wrapper">
             <input type="text" id="searchInput" class="search-input" placeholder="Nhập từ khóa rộng để tìm tài liệu...">
             <span class="search-icon">🔍</span>
         </div>
 
+        <!-- Thanh điều hướng 3 TABS -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('tab-danhmuc')">📁 DANH MỤC</button>
-            <button class="tab-btn" onclick="switchTab('tab-khotailieu')">📚 TÀI LIỆU FREE</button>
-            <button class="tab-btn" onclick="switchTab('tab-gioithieu')">ℹ️ GIỚI THIỆU</button>
+            <button class="tab-btn active" onclick="switchTab('tab-danhmuc')">DANH MỤC</button>
+            <button class="tab-btn" onclick="switchTab('tab-khotailieu')">TÀI LIỆU FREE</button>
+            <button class="tab-btn" onclick="switchTab('tab-gioithieu')">GIỚI THIỆU</button>
         </div>
 
+        <!-- Khung Loading -->
         <div id="loadingArea" class="loading">⏳ Đang cập nhật, đợi chút nha...</div>
 
         <div id="mainContent" style="display: none;">
+            <!-- TAB 1: DANH MỤC -->
             <div id="tab-danhmuc" class="tab-content active">
                 <div class="categories-grid" id="categoriesGrid"></div>
             </div>
 
+            <!-- TAB 2: KHO TÀI LIỆU -->
             <div id="tab-khotailieu" class="tab-content">
                 <div class="results-list" id="resultsList"></div>
             </div>
 
+            <!-- TAB 3: GIỚI THIỆU -->
             <div id="tab-gioithieu" class="tab-content">
                 <div class="intro-card">
                     <div class="intro-avatar">🦁</div>
@@ -498,6 +532,7 @@
                 </div>
             </div>
 
+            <!-- PHẦN GỢI Ý CỐ ĐỊNH Ở DƯỚI -->
             <div class="recommend-section">
                 <div class="recommend-title">✨ Có thể bạn cần (gợi ý)</div>
                 <div class="results-list" id="recommendList"></div>
@@ -505,6 +540,7 @@
         </div>
     </div>
 
+    <!-- Popup Mở Khóa Shopee -> Drive -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-gift-icon" id="modalGiftIcon">🎁</div>
@@ -521,25 +557,51 @@
         // Link Shopee mặc định của bạn
         const linkShopeeCuaBan = "https://s.shopee.vn/70IXpBepnD";
 
-        // Bản đồ icon chuyên nghiệp kết hợp đồng bộ theo yêu cầu mới của bạn
+        // Bộ sưu tập mã SVG tối giản siêu sang xịn mịn (không dùng emoji hệ thống phèn nữa)
+        const svgIcons = {
+            "Thiết kế": `<svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,
+            "Lập trình": `<svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>`,
+            "Ngoại ngữ": `<svg viewBox="0 0 24 24"><path d="M5 8h14M5 12h14M11 16h8"/></svg>`,
+            "Đầu tư": `<svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>`,
+            "Kỹ năng": `<svg viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A5 5 0 0 0 8 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg>`,
+            "Marketing": `<svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
+            "TikTok": `<svg viewBox="0 0 24 24"><path d="M9 18A5 5 0 1 1 14 13v-8h4V3h-4a3 3 0 0 0-3 3v8a2 2 0 1 0 2 2"/></svg>`,
+            "Văn phòng": `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>`,
+            "AI": `<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 15h.01M16 15h.01"/></svg>`,
+            "Freelancer": `<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
+            "MMO": `<svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+            "Youtube": `<svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25a29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>`,
+            "Facebook": `<svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
+            "Google": `<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+            "Kinh doanh": `<svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+            "Sinh viên": `<svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>`,
+            "Khác": `<svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`,
+            // Định dạng file list
+            "pdf": `<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`,
+            "excel": `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>`,
+            "word": `<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+            "zip": `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="3" x2="12" y2="15"/><circle cx="12" cy="18" r="2"/></svg>`
+        };
+
+        // Bản đồ liên kết tên danh mục sang mã Icon SVG
         const categoriesData = {
-            "Thiết kế": { icon: "✒️" },
-            "Lập trình": { icon: "💻" },
-            "Ngoại ngữ": { icon: "🔤" },
-            "Đầu tư": { icon: "📈" },
-            "Kỹ năng": { icon: "💡" },
-            "Marketing": { icon: "✉️" },
-            "TikTok": { icon: "🎵" },
-            "Văn phòng": { icon: "📊" },
-            "AI": { icon: "🧠" },
-            "Freelancer": { icon: "💼" },
-            "MMO": { icon: "💸" },
-            "Youtube": { icon: "🔴" },
-            "Facebook": { icon: "📘" },
-            "Google": { icon: "🔍" },
-            "Kinh doanh": { icon: "📊" },
-            "Sinh viên": { icon: "🎓" },
-            "Khác": { icon: "📁" }
+            "Thiết kế": { icon: svgIcons["Thiết kế"] },
+            "Lập trình": { icon: svgIcons["Lập trình"] },
+            "Ngoại ngữ": { icon: svgIcons["Ngoại ngữ"] },
+            "Đầu tư": { icon: svgIcons["Đầu tư"] },
+            "Kỹ năng": { icon: svgIcons["Kỹ năng"] },
+            "Marketing": { icon: svgIcons["Marketing"] },
+            "TikTok": { icon: svgIcons["TikTok"] },
+            "Văn phòng": { icon: svgIcons["Văn phòng"] },
+            "AI": { icon: svgIcons["AI"] },
+            "Freelancer": { icon: svgIcons["Freelancer"] },
+            "MMO": { icon: svgIcons["MMO"] },
+            "Youtube": { icon: svgIcons["Youtube"] },
+            "Facebook": { icon: svgIcons["Facebook"] },
+            "Google": { icon: svgIcons["Google"] },
+            "Kinh doanh": { icon: svgIcons["Kinh doanh"] },
+            "Sinh viên": { icon: svgIcons["Sinh viên"] },
+            "Khác": { icon: svgIcons["Khác"] }
         };
 
         // HỆ THỐNG LIGHT/DARK MODE (MẶC ĐỊNH SÁNG)
@@ -632,19 +694,20 @@
             document.getElementById(tabId).classList.add('active');
         }
 
+        // Nhận diện Icon theo đuôi file SVG hoặc lấy SVG chủ đề
         function getFileStyle(doc) {
             const fileName = doc.title.toLowerCase();
             const category = doc.category;
 
-            if (fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) return { icon: '📊' };
-            if (fileName.endsWith('.docx') || fileName.endsWith('.doc')) return { icon: '📝' };
-            if (fileName.endsWith('.pdf')) return { icon: '📕' };
-            if (fileName.endsWith('.zip') || fileName.endsWith('.rar')) return { icon: '📦' };
+            if (fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) return { icon: svgIcons["excel"] };
+            if (fileName.endsWith('.docx') || fileName.endsWith('.doc')) return { icon: svgIcons["word"] };
+            if (fileName.endsWith('.pdf')) return { icon: svgIcons["pdf"] };
+            if (fileName.endsWith('.zip') || fileName.endsWith('.rar')) return { icon: svgIcons["zip"] };
 
             if (categoriesData[category]) {
                 return { icon: categoriesData[category].icon };
             }
-            return { icon: '📁' };
+            return { icon: svgIcons["Khác"] };
         }
 
         function renderCategories() {
