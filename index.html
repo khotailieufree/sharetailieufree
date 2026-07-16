@@ -1,5 +1,5 @@
-<html lang="vi">
 <!DOCTYPE html>
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,6 +63,40 @@
             max-width: 480px;
             margin-top: 10px;
             position: relative;
+        }
+
+        /* NÚT BAY MỞ KHUNG CHAT TELEGRAM */
+        .fab-chat {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: #2481cc; /* Màu đặc trưng Telegram */
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(36, 129, 204, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            z-index: 1000;
+        }
+
+        #telegram-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Nút chuyển theme mượt mà */
@@ -480,7 +514,7 @@
             animation: pulseGlow 2s infinite;
         }
 
-        /* 🔝 NÚT VỀ ĐẦU TRANG SMART UX (MỤC 2) */
+        /* 🔝 NÚT VỀ ĐẦU TRANG SMART UX */
         .fixed-top-btn {
             position: fixed;
             bottom: 20px;
@@ -718,6 +752,21 @@
                 <p class="motivational-text" id="motivationalText">Hôm nay bạn đã cố gắng nhiều rồi, học nốt một chút rồi nghỉ ngơi sớm nha! 🥰</p>
             </div>
         </div>
+
+        <!-- NÚT BAY MỞ KHUNG CHAT TELEGRAM -->
+        <button class="fab-chat" onclick="toggleTelegram()">💬</button>
+
+        <!-- KHUNG TELEGRAM MODAL -->
+        <div id="telegram-modal" onclick="toggleTelegram()">
+            <div style="width: 90%; max-width: 450px; background: white; padding: 10px; border-radius: 15px;" onclick="event.stopPropagation()">
+                <script async src="https://telegram.org/js/telegram-widget.js?22" 
+                        data-telegram-discussion="tramtrithuc_chat" 
+                        data-comments-limit="5" 
+                        data-colorful="1" 
+                        data-dark="1">
+                </script>
+            </div>
+        </div>
     </div>
 
     <button class="fixed-cart-btn" id="fixedCartBtn" onclick="openCartModal()">
@@ -830,7 +879,6 @@
         let pendingDriveUrl = "";
         let pendingShopeeUrl = "";
 
-        // 🎭 BIẾN LƯU VỊ TRÍ CUỘN TRANG & BỘ LỌC CŨ CỦA KHÁCH
         let lastScrollPositions = { 'tab-danhmuc': 0, 'tab-khotailieu': 0, 'tab-gioithieu': 0 };
 
         const searchInput = document.getElementById('searchInput');
@@ -853,11 +901,9 @@
         const cartCount = document.getElementById('cartCount');
         const fixedTopBtn = document.getElementById('fixedTopBtn');
 
-        // 🌙 TỰ ĐỘNG BẬT DARK MODE BAN ĐÊM (MỤC 3)
         function autoNightMode() {
             const currentHour = new Date().getHours();
             const savedTheme = localStorage.getItem('theme');
-            // Nếu khách chưa từng tự bấm nút đổi giao diện, tự động bật Dark Mode từ 18:00 tối đến 6:00 sáng
             if (!savedTheme) {
                 if (currentHour >= 18 || currentHour < 6) {
                     document.documentElement.setAttribute('data-theme', 'dark');
@@ -923,11 +969,10 @@
             }
         }
 
-        // 🎭 GIỮ NGUYÊN VỊ TRÍ CUỘN TRANG VÀ BỘ LỌC CŨ KHI CHUYỂN TAB (MỤC 4)
         window.switchTab = function(tabId) {
             const currentActiveTab = document.querySelector('.tab-content.active');
             if (currentActiveTab) {
-                lastScrollPositions[currentActiveTab.id] = window.scrollY; // Lưu lại tọa độ cuộn của tab cũ
+                lastScrollPositions[currentActiveTab.id] = window.scrollY;
             }
 
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -937,8 +982,6 @@
             if (targetBtn) targetBtn.classList.add('active');
             
             document.getElementById(tabId).classList.add('active');
-
-            // Khôi phục lại đúng tọa độ cuộn cũ của tab vừa mở khóa
             window.scrollTo({ top: lastScrollPositions[tabId], behavior: 'auto' });
         }
 
@@ -951,7 +994,6 @@
             render();
         }
 
-        // 🔝 LOGIC NÚT VỀ ĐẦU TRANG SMART UX (MỤC 2)
         window.onscroll = function() {
             if (window.scrollY > 350) {
                 fixedTopBtn.style.display = "flex";
@@ -1165,7 +1207,7 @@
             modalMetaAuthor.innerHTML = `<span class="modal-meta-label">Tác giả:</span> ${authorDisplay}`;
             modalMetaDesc.innerHTML = `<span class="modal-meta-label">Mô tả:</span> ${descDisplay}`;
 
-                        modalDesc.innerText = "Bạn ơi, ghé thăm Shopee trong 5s sau đó quay lại để lấy link học Google Drive nhé!";
+            modalDesc.innerText = "Bạn ơi, ghé thăm Shopee trong 5s sau đó quay lại để lấy link học Google Drive nhé!";
             modalActionArea.innerHTML = `
                 <a href="${pendingShopeeUrl}" target="_blank" class="btn-shopee" id="shopeeBtn">
                     🥰 Ok, tui sẽ ghé Shopee xíu xong quay lại liền nè
@@ -1175,7 +1217,8 @@
                 </button>
             `;
             modalOverlay.style.display = 'flex';
-        document.getElementById('shopeeBtn').addEventListener('click', () => {
+
+            document.getElementById('shopeeBtn').addEventListener('click', () => {
                 setTimeout(() => {
                     modalGiftIcon.innerText = "🎉";
                     modalTitle.innerText = "Đã Mở Khóa Thành Công!";
@@ -1205,32 +1248,37 @@
         cartModalOverlay.addEventListener('click', (e) => { if (e.target === cartModalOverlay) cartModalOverlay.style.display = 'none'; });
         searchInput.addEventListener('input', () => { selectedCategoryFilter = "all"; switchTab('tab-khotailieu'); render(); });
 
-    // XỬ LÝ DEEP LINKING: Tự động mở tài liệu từ link chia sẻ
-    window.addEventListener('load', () => {
-        const params = new URLSearchParams(window.location.search);
-        const docId = params.get('id');
-        const checkInterval = setInterval(() => {
-            if (documents && documents.length > 0) {
-                clearInterval(checkInterval);
-                if (docId) {
-                    const targetDoc = documents.find(d => d.id == docId);
-                    if (targetDoc) triggerUnlock(targetDoc);
+        // HÀM ĐÓNG MỞ CỬA SỔ CHAT TELEGRAM
+        function toggleTelegram() {
+            const modal = document.getElementById('telegram-modal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        // XỬ LÝ DEEP LINKING: Tự động mở tài liệu từ link chia sẻ khi tải trang
+        window.addEventListener('load', () => {
+            const params = new URLSearchParams(window.location.search);
+            const docId = params.get('id');
+            const checkInterval = setInterval(() => {
+                if (documents && documents.length > 0) {
+                    clearInterval(checkInterval);
+                    if (docId) {
+                        const targetDoc = documents.find(d => d.id == docId);
+                        if (targetDoc) triggerUnlock(targetDoc);
+                    }
                 }
-            }
-        }, 500);
-    });
-
-    // HÀM COPY LINK CHIA SẺ
-    function copyShareLink(id) {
-        const shareLink = window.location.origin + window.location.pathname + "?id=" + id;
-        navigator.clipboard.writeText(shareLink).then(() => {
-            alert("Đã copy link! Bạn gửi cho bạn bè nhé: " + shareLink);
+            }, 500);
         });
-    }
 
-    // Tải dữ liệu chính
-    fetchGoogleSheetsData();
-</script>
+        // HÀM COPY LINK CHIA SẺ
+        function copyShareLink(id) {
+            const shareLink = window.location.origin + window.location.pathname + "?id=" + id;
+            navigator.clipboard.writeText(shareLink).then(() => {
+                alert("Đã copy link! Bạn gửi cho bạn bè nhé: " + shareLink);
+            });
+        }
+
+        // Khởi chạy hệ thống tải dữ liệu
+        fetchGoogleSheetsData();
+    </script>
 </body>
 </html>
-
